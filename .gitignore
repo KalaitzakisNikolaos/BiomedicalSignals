@@ -1,5 +1,11 @@
-DUKE
-ISPY1
-ISPY2
-NACT
-Biomedical
+# Python virtual environment
+Biomedical/
+
+# Exclude raw data files but include results
+*_0000.nii.gz
+*_0001.nii.gz
+*/segment/*
+
+# Keep results files
+!*_colormap.nii.gz
+!*_colormap_slice.png
