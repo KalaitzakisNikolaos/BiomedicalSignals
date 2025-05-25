@@ -2,11 +2,9 @@
 
 ## 🔬 Complete DCE-MRI Analysis & Harmonization Pipeline
 
-We're excited to announce the first major release of the **MAMA-MIA DCE-MRI Analysis Project** - a comprehensive pipeline for analyzing dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data with advanced harmonization capabilities.
+Release of the **MAMA-MIA DCE-MRI Analysis Project** - a comprehensive pipeline for analyzing dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data with advanced harmonization capabilities.
 
 ---
-
-## ✨ **What's New in v1.0.0**
 
 ### 🎯 **Core Features**
 - **✅ Automated Pseudo-color Map Generation** - Classify voxels into Uptake/Plateau/Washout patterns
@@ -90,7 +88,7 @@ This pipeline addresses critical challenges in multicenter DCE-MRI studies:
 
 ## 🎓 **Academic Context**
 
-Developed at **Hellenic Mediterranean University** as part of advanced biomedical signal processing research. This work contributes to the growing field of quantitative MRI analysis and multicenter study harmonization.
+Developed for **Hellenic Mediterranean University** as part of advanced biomedical signal processing studies. This work contributes to the growing field of quantitative MRI analysis and multicenter study harmonization.
 
 ---
 
@@ -165,11 +163,8 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 - MAMA-MIA dataset contributors
 - neuroCombat development team
-- Hellenic Mediterranean University research community
 
 ---
-
-**🔥 Ready to harmonize your DCE-MRI data? Download now and get started!**
 
 ### 📥 **Download Instructions**
 
@@ -185,5 +180,3 @@ MIT License - See [LICENSE](LICENSE) file for details
 4. **Run the pipeline** and explore your results!
 
 ---
-
-*This release represents months of development and validation. We hope it accelerates your DCE-MRI research!* 🚀
