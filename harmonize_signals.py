@@ -458,8 +458,9 @@ def main():
     print("ComBat Harmonization Pipeline")
     print("="*60)
     
-    # Configuration
-    base_dir = r'C:\Users\nickk\Music\BiomedicalSignals'
+    # Configuration - automatically detect the repository root directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = script_dir  # The script is located in the repository root
     datasets = ['DUKE', 'ISPY1', 'ISPY2', 'NACT']
     feature_columns = ['pct_uptake', 'pct_plateau', 'pct_washout']
     

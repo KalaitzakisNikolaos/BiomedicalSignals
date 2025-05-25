@@ -131,8 +131,9 @@ def process_dataset(base_dir, dataset_name):
         create_colormap(case_id, case_path, segment_dir)
 
 def main():
-    # Βασικός φάκελος δεδομένων
-    base_dir = r'C:\\Users\\nickk\\Music\\BiomedicalSignals'
+    # Automatically detect the repository root directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = script_dir  # The script is located in the repository root
     
     # Επεξεργασία του συνόλου δεδομένων DUKE
     process_dataset(base_dir, "DUKE")
