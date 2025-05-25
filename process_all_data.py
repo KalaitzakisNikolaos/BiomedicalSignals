@@ -55,30 +55,53 @@ def create_colormap(case_id, dataset_dir, segment_dir):
         out_path = os.path.join(dataset_dir, f"{case_id}_colormap.nii.gz")
         nib.save(out_img, out_path)
         
-        # Δημιουργία οπτικοποίησης
-        colors = [(0,0,0), (0,0,1), (0,1,0), (1,0,0)]
+        # Δημιουργία οπτικοποίησης με overlay και βελτιωμένα χρώματα
+        # Define new colors with alpha for overlay, matching the example graph:
+        # Index 0 (Background in colormap): Transparent
+        # Index 1 (Uptake): Pure Blue
+        # Index 2 (Plateau): Pure Green
+        # Index 3 (Washout): Pure Red
+        colors = [
+            (0, 0, 0, 0),      # Transparent for background
+            (0, 0, 1, 0.7),    # Pure Blue with alpha for Uptake
+            (0, 1, 0, 0.7),    # Pure Green with alpha for Plateau
+            (1, 0, 0, 0.7)     # Pure Red with alpha for Washout
+        ]
         custom_cmap = ListedColormap(colors)
         
         # Εύρεση της κεντρικής τομής όπου υπάρχει ROI
         roi_slices = []
         for z in range(colormap.shape[2]):
-            if np.any(roi[:,:,z]):
+            if np.any(roi[:,:,z]): # Check if ROI exists in this slice
                 roi_slices.append(z)
         
         if not roi_slices:
+            # If no ROI found in any slice (e.g. empty mask), use middle slice of the volume
             slice_idx = colormap.shape[2] // 2
         else:
             slice_idx = roi_slices[len(roi_slices) // 2]  # Μεσαία τομή με ROI
         
-        fig, ax = plt.subplots(figsize=(10, 8))
-        im = ax.imshow(colormap[:, :, slice_idx], cmap=custom_cmap, vmin=0, vmax=3)
-        cbar = plt.colorbar(im, ticks=[0, 1, 2, 3])
-        cbar.ax.set_yticklabels(['Background', 'Uptake', 'Plateau', 'Washout'])
+        fig, ax = plt.subplots(figsize=(12, 10)) # Adjusted figure size
         
-        plt.title(f'Ψευδο-χρωματικός χάρτης - {case_id} - Τομή {slice_idx}')
+        # Display anatomical image (img_0000) as background
+        ax.imshow(img_0000[:, :, slice_idx].T, cmap='gray', origin='lower', aspect='auto')
+        
+        # Overlay the colormap
+        # Make sure the colormap array is oriented the same way as the anatomical image
+        im = ax.imshow(colormap[:, :, slice_idx].T, cmap=custom_cmap, vmin=0, vmax=3, origin='lower', aspect='auto', alpha=0.7) # General alpha for the layer
+        
+        # Add colorbar
+        cbar = plt.colorbar(im, ax=ax, ticks=[0.375, 1.125, 1.875, 2.625], fraction=0.046, pad=0.04) # Adjusted tick positions for centered labels
+        cbar.ax.set_yticklabels(['Background', 'Uptake', 'Plateau', 'Washout'])
+        cbar.ax.tick_params(labelsize=10)
+
+        ax.set_title(f'Pseudo-color Map Overlay - {case_id} - Slice {slice_idx}', fontsize=14)
+        ax.axis('off') # Turn off axis numbers and ticks
+        
+        plt.tight_layout()
         img_out_path = os.path.join(dataset_dir, f"{case_id}_colormap_slice.png")
-        plt.savefig(img_out_path)
-        plt.close()
+        plt.savefig(img_out_path, dpi=200) # Slightly lower DPI for faster generation if needed, or keep 300
+        plt.close(fig)
         
         print(f"{case_id}: Οι ψευδο-χρωματικοί χάρτες δημιουργήθηκαν επιτυχώς!")
         
