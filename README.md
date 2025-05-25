@@ -24,7 +24,7 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
 
 ### Example 2: Segmentation Mask Overlay
 <p align="center">
-  <img src="images/example2.png" alt="Segmentation Mask Overlay" width="400"/>
+  <img src="images/segment.gif" alt="Segmentation Mask Overlay" width="400"/>
 </p>
 
 ### Example 3: Pseudo-color Map (Uptake/Plateau/Washout)
