@@ -29,7 +29,7 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
 
 ### Example 3: Pseudo-color Map (Uptake/Plateau/Washout)
 <p align="center">
-  <img src="images/example3.png" alt="Pseudo-color Map" width="400"/>
+  <img src="ISPY1/ISPY1_1034/ISPY1_1034_colormap_slice.png" alt="Pseudo-color Map" width="400"/>
 </p>
 
 ### Example 4: Dynamic Colormap Animation (DUKE_099)
