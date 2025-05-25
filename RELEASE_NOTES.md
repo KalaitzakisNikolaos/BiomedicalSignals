@@ -170,7 +170,7 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/MAMA-MIA-DCE-MRI-Analysis.git
+   git clone https://github.com/KalaitzakisNikolaos/BiomedicalSignals.git
    ```
 
 2. **Download the MAMA-MIA dataset** from [Synapse](https://www.synapse.org/Synapse:syn60868042/files/)
