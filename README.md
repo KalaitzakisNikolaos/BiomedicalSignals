@@ -7,11 +7,12 @@
 ---
 
 ## Overview
-This project provides a complete pipeline for the analysis of dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
+This project provides a unified pipeline for the analysis of dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
 
 1. **Biomarker Extraction** from DCE-MRI sequences with contrast agent.
 2. **Pseudo-color Map Generation** based on biomarker characteristics.
 3. **Signal Harmonization** using the ComBat technique for multicenter data.
+4. **Comprehensive Visualization** of kinetic curves and harmonization effects.
 
 ---
 
@@ -29,7 +30,7 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
 
 ### Example 3: Pseudo-color Map (Uptake/Plateau/Washout)
 <p align="center">
-  <img src="ISPY1/ISPY1_1034/ISPY1_1034_colormap_slice.png" alt="Pseudo-color Map" width="400"/>
+  <img src="ISPY1/ISPY1_1034/ISPY1_1034_complete_colormap.png" alt="Pseudo-color Map" width="400"/>
 </p>
 
 ### Example 4: Dynamic Colormap Animation (DUKE_099)
@@ -37,16 +38,16 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
   <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
 
-### Example 5: ComBat Harmonization Analysis
+### Example 5: ComBat Harmonization Visualization
 <p align="center">
-  <img src="images/comprehensive_combat_analysis.png" alt="Comprehensive ComBat Analysis" width="600"/>
+  <img src="images/combat_visualization.png" alt="Unified Combat Visualization" width="600"/>
 </p>
 
-### Example 6: Feature-Specific Harmonization Results
+### Example 6: Terminal Execution Timeline
 <div align="center">
-  <img src="images/combat_pct_uptake.png" alt="Uptake Harmonization" width="300"/>
-  <img src="images/combat_pct_plateau.png" alt="Plateau Harmonization" width="300"/>
-  <img src="images/combat_pct_washout.png" alt="Washout Harmonization" width="300"/>
+  <img src="images/terminal_launch.png" alt="Terminal Launch" width="300"/>
+  <img src="images/terminal_execute.png" alt="Terminal Execution" width="300"/>
+  <img src="images/terminal_final.png" alt="Terminal Completion" width="300"/>
 </div>
 
 ---
@@ -54,11 +55,11 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
 ## Project Structure
 - `DUKE/`, `ISPY1/`, `ISPY2/`, `NACT/`: Folders for each study group, each containing subfolders for individual cases and their respective DCE-MRI timepoints (e.g., `*_0000.nii.gz`, `*_0001.nii.gz`, ...).
 - `segment/`: Contains segmentation masks for each case (e.g., `DUKE_032.nii.gz`).
-- `process_all_data.py`: Main Python script for generating pseudo-color maps from the DCE-MRI data.
-- `harmonize_signals.py`: ComBat harmonization pipeline for multicenter data harmonization.
+- `complete_pipeline.py`: Unified Python script for the entire DCE-MRI pipeline. Combines enhanced feature extraction, radiomics analysis, NIfTI colormap creation, and ComBat harmonization in a single file.
+- `combat_visualization.py`: Unified visualization script for creating comprehensive harmonization visualizations.
 - `images/`: Contains example images, logos, and analysis results used in this README.
-- `raw_features.csv`: Raw extracted features before harmonization.
-- `harmonized_features.csv`: Features after ComBat harmonization.
+- `complete_pipeline_raw_features.csv`: Raw extracted features before harmonization.
+- `complete_pipeline_harmonized_features.csv`: Features after ComBat harmonization.
 
 ## Data Files
 
@@ -80,7 +81,7 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
   - Value 2: Plateau (-10% to +10% intensity change)
   - Value 3: Washout (<-10% intensity decrease)
   
-- **Visualization Images:** `*_colormap_slice.png` (e.g., `DUKE_032_colormap_slice.png`)
+- **Visualization Images:** `*_complete_colormap.png` (e.g., `DUKE_032_complete_colormap.png`)
   - PNG images showing a central slice of the pseudo-color map
   - Color coding:
     - Black: Background
@@ -90,18 +91,89 @@ This project provides a complete pipeline for the analysis of dynamic contrast-e
   - Includes a color legend for easy interpretation
 
 - **Feature Analysis Files:**
-  - `raw_features.csv`: Statistical features extracted from each case before harmonization
-  - `harmonized_features.csv`: Features after ComBat harmonization
-  - `images/comprehensive_combat_analysis.png`: Comprehensive analysis showing before/after harmonization
-  - `images/combat_pct_*.png`: Individual feature comparison plots
+  - `complete_pipeline_raw_features.csv`: Statistical features extracted from each case before harmonization
+  - `complete_pipeline_normalized_features.csv`: Features after normalization
+  - `complete_pipeline_harmonized_features.csv`: Features after ComBat harmonization
+  - `images/combat_visualization.png`: Comprehensive analysis showing before/after harmonization
   - `images/colomap_*.gif`: Dynamic visualization of colormap analysis
 
-The `process_all_data.py` script automatically generates these output files by:
+The `complete_pipeline.py` script automatically generates these output files by:
 1. Loading the pre and post-contrast images
 2. Applying the ROI mask to isolate the region of interest
 3. Calculating the percentage intensity change between timepoints
 4. Classifying each voxel according to its enhancement pattern
-5. Saving the results as both NIfTI (.nii.gz) and visualization (.png) files
+5. Extracting comprehensive radiomics features from the ROI
+6. Saving the results as both NIfTI (.nii.gz) and visualization (.png) files
+7. Normalizing and harmonizing features across datasets
+8. Generating final CSV output with all feature data
+
+---
+
+## File Naming Conventions
+
+The unified pipeline uses consistent file naming conventions:
+
+1. **Input Files:**
+   - Original DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (e.g., `DUKE_032_0000.nii.gz`)
+   - Segmentation masks: `{DATASET}_{CASEID}.nii.gz` (e.g., `DUKE_032.nii.gz`)
+
+2. **Output Files:**
+   - NIfTI Colormaps: `{DATASET}_{CASEID}_colormap.nii.gz` (e.g., `DUKE_032_colormap.nii.gz`)
+   - PNG Visualizations: `{DATASET}_{CASEID}_complete_colormap.png` (e.g., `DUKE_032_complete_colormap.png`)
+   - Raw Features: `complete_pipeline_raw_features.csv`
+   - Normalized Features: `complete_pipeline_normalized_features.csv`
+   - Harmonized Features: `complete_pipeline_harmonized_features.csv`
+   - Visualization: `images/combat_visualization.png`
+
+## Συμβάσεις Ονοματοδοσίας Αρχείων
+
+Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
+
+1. **Αρχεία Εισόδου:**
+   - Αρχικά DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ., `DUKE_032_0000.nii.gz`)
+   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ., `DUKE_032.nii.gz`)
+
+2. **Αρχεία Εξόδου:**
+   - NIfTI Χρωματικοί χάρτες: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ., `DUKE_032_colormap.nii.gz`)
+   - Οπτικοποιήσεις PNG: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ., `DUKE_032_complete_colormap.png`)
+   - Ακατέργαστα χαρακτηριστικά: `complete_pipeline_raw_features.csv`
+   - Κανονικοποιημένα χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
+   - Εναρμονισμένα χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
+   - Οπτικοποίηση: `images/combat_visualization.png`
+
+## Detailed Outputs
+
+### 1. Colormap NIfTI Files
+
+The colormap NIfTI files (`*_colormap.nii.gz`) contain voxel classifications where:
+- Value 0: Background (no ROI)
+- Value 1: Uptake (significant enhancement)
+- Value 2: Plateau (stable enhancement)
+- Value 3: Washout (decreasing enhancement)
+
+### 2. Visualization PNG Files
+
+The PNG visualizations (`*_complete_colormap.png`) show:
+- Center slice of the tumor region
+- Color-coded kinetic patterns
+- Color legend
+- Case identifier
+
+### 3. CSV Feature Files
+
+Three CSV files are created with increasing levels of processing:
+
+1. **Raw Features** (`complete_pipeline_raw_features.csv`):
+   - Direct feature measurements before any normalization
+   - Includes case ID, dataset source, and raw kinetic percentages
+
+2. **Normalized Features** (`complete_pipeline_normalized_features.csv`):
+   - Features after standardization within each dataset
+   - Normalizes values for fair comparison
+
+3. **Harmonized Features** (`complete_pipeline_harmonized_features.csv`):
+   - Final features after ComBat harmonization
+   - Batch effects removed while preserving biological variation
 
 ---
 
@@ -129,25 +201,29 @@ The `process_all_data.py` script automatically generates these output files by:
 
 ---
 
-## Complete Pipeline Workflow
+## Unified Pipeline Workflow
 
-### Step 1: Pseudo-color Map Generation
+### Step 1: Complete Pipeline Execution
 ```bash
-python process_all_data.py
+python complete_pipeline.py
 ```
-This script processes all cases and generates:
-- `*_colormap.nii.gz` files with classified voxels
-- `*_colormap_slice.png` visualization images
-
-### Step 2: Feature Extraction and Harmonization
-```bash
-python harmonize_signals.py
-```
-This script performs:
-- Feature extraction from colormap files
+This unified script processes all cases and performs:
+- Enhanced DCE-MRI kinetic feature extraction
+- Comprehensive radiomics analysis
+- NIfTI colormap generation (`*_colormap.nii.gz`) 
+- PNG visualization creation (`*_colormap_slice.png`)
 - ComBat harmonization across datasets
-- Statistical analysis and visualization generation
-- Creation of comprehensive comparison plots
+- CSV output with raw and harmonized features
+
+### Step 2: Visualization Generation
+```bash
+python combat_visualization.py
+```
+This script creates:
+- Reference kinetic curves visualization
+- Dataset summary statistics
+- Before/After harmonization comparisons for Uptake, Plateau, Washout
+- Comprehensive visualization dashboard
 
 ---
 
@@ -156,24 +232,24 @@ This script performs:
 2. Place the data in the corresponding folders as shown above.
 3. Install required Python packages:
    ```bash
-   pip install nibabel numpy matplotlib SimpleITK pandas seaborn scipy neuroCombat
+   pip install nibabel numpy matplotlib SimpleITK pandas seaborn scipy neuroCombat pyradiomics
    ```
-4. **Step 1 - Generate pseudo-color maps:**
+4. **Step 1 - Run the complete pipeline:**
    ```bash
-   python process_all_data.py
+   python complete_pipeline.py
    ```
    This creates:
    - `*_colormap.nii.gz` - NIfTI files with classified voxels
    - `*_colormap_slice.png` - PNG visualization images
+   - `complete_pipeline_raw_features.csv` - Features before harmonization
+   - `complete_pipeline_harmonized_features.csv` - Features after harmonization
 
-5. **Step 2 - Run ComBat harmonization:**
+5. **Step 2 - Generate visualizations:**
    ```bash
-   python harmonize_signals.py
+   python combat_visualization.py
    ```
    This generates:
-   - `raw_features.csv` - Features before harmonization
-   - `harmonized_features.csv` - Features after harmonization
-   - Comprehensive analysis plots in the `images/` folder
+   - `images/combat_visualization.png` - Comprehensive visualization dashboard
 
 6. **View Results:**
    - NIfTI files can be visualized using [Mango Viewer](https://mangoviewer.com/) or similar tools
@@ -193,8 +269,17 @@ This script performs:
 - scipy
 - pandas
 - neuroCombat
-- SimpleITK (optional, for advanced processing)
-- PyRadiomics (optional, for extended radiomic features)
+- SimpleITK
+- pyradiomics (for comprehensive feature extraction)
+
+## Unified Pipeline Features
+The new unified pipeline provides several advantages over the previous separate scripts:
+
+1. **One-step Processing**: Complete DCE-MRI analysis from raw images to harmonized features in a single script
+2. **Enhanced Feature Set**: Combines basic kinetic features with comprehensive radiomics
+3. **Improved Visualization**: Creates standardized visualizations for both individual cases and dataset-wide analysis
+4. **Automated Harmonization**: Performs ComBat harmonization with detailed statistical outputs
+5. **Consistent File Naming**: Uses consistent naming conventions across all output files
 
 ## Dataset Statistics
 - **Total Cases Processed**: 40 cases across 4 datasets
@@ -228,11 +313,11 @@ This script performs:
 ## Δομή Έργου
 - `DUKE/`, `ISPY1/`, `ISPY2/`, `NACT/`: Φάκελοι για κάθε ομάδα με υποφακέλους για κάθε περίπτωση και τα αντίστοιχα χρονικά σημεία DCE-MRI (π.χ. `*_0000.nii.gz`, `*_0001.nii.gz`, ...).
 - `segment/`: Περιέχει τις μάσκες τμηματοποίησης για κάθε περίπτωση (π.χ. `DUKE_032.nii.gz`).
-- `process_all_data.py`: Κύριο Python script για τη δημιουργία ψευδο-χρωματικών χαρτών από τα δεδομένα DCE-MRI.
-- `harmonize_signals.py`: Pipeline ComBat εναρμόνισης για εναρμόνιση πολυκεντρικών δεδομένων.
+- `complete_pipeline.py`: Ενοποιημένο Python script για όλη τη ροή DCE-MRI. Συνδυάζει ενισχυμένη εξαγωγή χαρακτηριστικών, ανάλυση radiomics, δημιουργία NIfTI colormap, και εναρμόνιση ComBat σε ένα ενιαίο αρχείο.
+- `combat_visualization.py`: Ενοποιημένο script οπτικοποίησης για τη δημιουργία περιεκτικών οπτικοποιήσεων εναρμόνισης.
 - `images/`: Περιέχει παραδείγματα εικόνων, λογότυπα και αποτελέσματα ανάλυσης για αυτό το README.
-- `raw_features.csv`: Ακατέργαστα εξαγόμενα χαρακτηριστικά πριν την εναρμόνιση.
-- `harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat.
+- `complete_pipeline_raw_features.csv`: Ακατέργαστα εξαγόμενα χαρακτηριστικά πριν την εναρμόνιση.
+- `complete_pipeline_harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat.
 
 ## Αρχεία Δεδομένων
 
@@ -254,110 +339,186 @@ This script performs:
   - Τιμή 2: Plateau (-10% έως +10% μεταβολή έντασης)
   - Τιμή 3: Washout (<-10% μείωση έντασης)
   
-- **Εικόνες Οπτικοποίησης:** `*_colormap_slice.png` (π.χ. `DUKE_032_colormap_slice.png`)
+- **Εικόνες Οπτικοποίησης:** `*_complete_colormap.png` (π.χ. `DUKE_032_complete_colormap.png`)
   - Εικόνες PNG που δείχνουν μια κεντρική τομή του ψευδο-χρωματικού χάρτη
   - Χρωματική κωδικοποίηση:
     - Μαύρο: Φόντο
     - Μπλε: Uptake
     - Πράσινο: Plateau
-    - Κόκκινο: Washout  - Περιλαμβάνουν υπόμνημα χρωμάτων για εύκολη ερμηνεία
+    - Κόκκινο: Washout
+  - Περιλαμβάνουν υπόμνημα χρωμάτων για εύκολη ερμηνεία
 
 - **Αρχεία Ανάλυσης Χαρακτηριστικών:**
-  - `raw_features.csv`: Στατιστικά χαρακτηριστικά που εξάγονται από κάθε περίπτωση πριν την εναρμόνιση
-  - `harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat
-  - `images/comprehensive_combat_analysis.png`: Περιεκτική ανάλυση που δείχνει πριν/μετά την εναρμόνιση
-  - `images/combat_pct_*.png`: Γραφήματα σύγκρισης μεμονωμένων χαρακτηριστικών
+  - `complete_pipeline_raw_features.csv`: Στατιστικά χαρακτηριστικά που εξάγονται από κάθε περίπτωση πριν την εναρμόνιση
+  - `complete_pipeline_normalized_features.csv`: Χαρακτηριστικά μετά την κανονικοποίηση
+  - `complete_pipeline_harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat
+  - `images/combat_visualization.png`: Περιεκτική ανάλυση που δείχνει πριν/μετά την εναρμόνιση
   - `images/colomap_*.gif`: Δυναμική οπτικοποίηση της ανάλυσης colormap
 
-Το script `process_all_data.py` δημιουργεί αυτόματα αυτά τα αρχεία εξόδου:
+Το script `complete_pipeline.py` δημιουργεί αυτόματα αυτά τα αρχεία εξόδου:
 1. Φορτώνοντας τις εικόνες πριν και μετά το σκιαγραφικό
 2. Εφαρμόζοντας τη μάσκα ROI για να απομονώσει την περιοχή ενδιαφέροντος
 3. Υπολογίζοντας την ποσοστιαία μεταβολή έντασης μεταξύ των χρονικών σημείων
 4. Ταξινομώντας κάθε voxel σύμφωνα με το μοτίβο ενίσχυσής του
-5. Αποθηκεύοντας τα αποτελέσματα ως αρχεία NIfTI (.nii.gz) και εικόνες οπτικοποίησης (.png)
+5. Εξάγοντας περιεκτικά χαρακτηριστικά radiomics από το ROI
+6. Αποθηκεύοντας τα αποτελέσματα ως αρχεία NIfTI (.nii.gz) και εικόνες οπτικοποίησης (.png)
+7. Κανονικοποιώντας και εναρμονίζοντας χαρακτηριστικά σε όλα τα σύνολα δεδομένων
+8. Δημιουργώντας τελική έξοδο CSV με όλα τα δεδομένα χαρακτηριστικών
 
 ---
 
-## Αναλυτικά Βήματα
+## Ονοματοδοσία Αρχείων
 
-### 1. Εξαγωγή Βιοσημάτων
-- Για κάθε περίπτωση, εξάγετε την περιοχή ενδιαφέροντος (ROI) με τη μάσκα τμηματοποίησης.
-- Χρησιμοποιήστε Python (nibabel, numpy) για επεξεργασία NIfTI εικόνων.
-- Εξάγετε τιμές έντασης για το ROI στα χρονικά σημεία 0000 και 0001.
+Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
 
-### 2. Δημιουργία Ψευδο-χρωματικού Χάρτη
-- Για κάθε εικονοστοιχείο του ROI, υπολογίστε τη μεταβολή έντασης μεταξύ χρονικών σημείων (π.χ. 0000 και 0001).
-- Κατατάξτε κάθε voxel σε:
-  - **Uptake (1):** >10% αύξηση
-  - **Plateau (2):** ~10% μεταβολή
-  - **Washout (3):** <10% μείωση
-- Αποθηκεύστε τον χάρτη ταξινόμησης ως νέα εικόνα NIfTI.
+1. **Αρχεία Εισόδου:**
+   - Αρχικό DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ. `DUKE_032_0000.nii.gz`)
+   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ. `DUKE_032.nii.gz`)
 
-### 3. Ομογενοποίηση Σημάτων (ComBat)
-- Εξάγετε στατιστικά χαρακτηριστικά από τους ψευδο-χρωματικούς χάρτες (% uptake, % plateau, % washout).
-- Εφαρμόστε εναρμόνιση ComBat χρησιμοποιώντας τη βιβλιοθήκη `neuroCombat` για μείωση των batch effects.
-- Δημιουργήστε περιεκτικά γραφήματα σύγκρισης που δείχνουν αποτελέσματα πριν/μετά την εναρμόνιση.
-- Υπολογίστε μετρικές εναρμόνισης συμπεριλαμβανομένης της μείωσης διακύμανσης και F-statistics.
-- Αποθηκεύστε τα εναρμονισμένα χαρακτηριστικά και δημιουργήστε λεπτομερείς οπτικοποιήσεις του αποτελέσματος εναρμόνισης.
+2. **Αρχεία Εξόδου:**
+   - NIfTI Colormaps: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ. `DUKE_032_colormap.nii.gz`)
+   - PNG Οπτικοποιήσεις: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ. `DUKE_032_complete_colormap.png`)
+   - Ακατέργαστα Χαρακτηριστικά: `complete_pipeline_raw_features.csv`
+   - Κανονικοποιημένα Χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
+   - Εναρμονισμένα Χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
+   - Οπτικοποίηση: `images/combat_visualization.png`
+
+## Συμβάσεις Ονοματοδοσίας Αρχείων
+
+Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
+
+1. **Αρχεία Εισόδου:**
+   - Αρχικά DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ., `DUKE_032_0000.nii.gz`)
+   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ., `DUKE_032.nii.gz`)
+
+2. **Αρχεία Εξόδου:**
+   - NIfTI Χρωματικοί χάρτες: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ., `DUKE_032_colormap.nii.gz`)
+   - Οπτικοποιήσεις PNG: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ., `DUKE_032_complete_colormap.png`)
+   - Ακατέργαστα χαρακτηριστικά: `complete_pipeline_raw_features.csv`
+   - Κανονικοποιημένα χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
+   - Εναρμονισμένα χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
+   - Οπτικοποίηση: `images/combat_visualization.png`
+
+## Λεπτομερείς Έξοδοι
+
+### 1. Αρχεία NIfTI Χρωματικών Χαρτών
+
+Τα αρχεία NIfTI χρωματικών χαρτών (`*_colormap.nii.gz`) περιέχουν ταξινομήσεις voxel όπου:
+- Τιμή 0: Φόντο (χωρίς ROI)
+- Τιμή 1: Uptake (σημαντική ενίσχυση)
+- Τιμή 2: Plateau (σταθερή ενίσχυση)
+- Τιμή 3: Washout (μειούμενη ενίσχυση)
+
+### 2. Αρχεία Οπτικοποίησης PNG
+
+Οι οπτικοποιήσεις PNG (`*_complete_colormap.png`) δείχνουν:
+- Κεντρική τομή της περιοχής του όγκου
+- Μοτίβα κινητικής με χρωματική κωδικοποίηση
+- Υπόμνημα χρωμάτων
+- Αναγνωριστικό περίπτωσης
+
+### 3. Αρχεία Χαρακτηριστικών CSV
+
+Δημιουργούνται τρία αρχεία CSV με αυξανόμενα επίπεδα επεξεργασίας:
+
+1. **Ακατέργαστα Χαρακτηριστικά** (`complete_pipeline_raw_features.csv`):
+   - Άμεσες μετρήσεις χαρακτηριστικών πριν από οποιαδήποτε κανονικοποίηση
+   - Περιλαμβάνει αναγνωριστικό περίπτωσης, πηγή συνόλου δεδομένων και ακατέργαστα ποσοστά κινητικής
+
+2. **Κανονικοποιημένα Χαρακτηριστικά** (`complete_pipeline_normalized_features.csv`):
+   - Χαρακτηριστικά μετά την τυποποίηση εντός κάθε συνόλου δεδομένων
+   - Κανονικοποιεί τιμές για δίκαιη σύγκριση
+
+3. **Εναρμονισμένα Χαρακτηριστικά** (`complete_pipeline_harmonized_features.csv`):
+   - Τελικά χαρακτηριστικά μετά την εναρμόνιση ComBat
+   - Τα batch effects έχουν αφαιρεθεί διατηρώντας τη βιολογική διακύμανση
 
 ---
 
-## Πλήρης Ροή Διαδικασιών
+## Detailed Steps
 
-### Βήμα 1: Δημιουργία Ψευδο-χρωματικών Χαρτών
+### 1. Biomarker Extraction
+- For each case, extract the region of interest (ROI) using the provided segmentation mask.
+- Use Python libraries (e.g., nibabel, numpy) to process the NIfTI images.
+- Extract intensity values for the ROI at timepoints 0000 and 0001.
+
+### 2. Pseudo-color Map Generation
+- For each voxel in the ROI, calculate the intensity change between timepoints (e.g., 0000 and 0001).
+- Classify each voxel into:
+  - **Uptake (1):** >10% increase
+  - **Plateau (2):** ~10% change
+  - **Washout (3):** <10% decrease
+- Save the resulting classification map as a new NIfTI image.
+
+### 3. Signal Harmonization (ComBat)
+- Extract statistical features from the pseudo-color maps (uptake%, plateau%, washout%).
+- Apply ComBat harmonization using the `neuroCombat` library to reduce batch effects.
+- Generate comprehensive comparison plots showing before/after harmonization results.
+- Calculate harmonization metrics including variance reduction and F-statistics.
+- Save harmonized features and create detailed visualizations of the harmonization effect.
+
+---
+
+## Unified Pipeline Workflow
+
+### Step 1: Complete Pipeline Execution
 ```bash
-python process_all_data.py
+python complete_pipeline.py
 ```
-Αυτό το script επεξεργάζεται όλες τις περιπτώσεις και δημιουργεί:
-- Αρχεία `*_colormap.nii.gz` με ταξινομημένα voxels
-- Εικόνες οπτικοποίησης `*_colormap_slice.png`
+This unified script processes all cases and performs:
+- Enhanced DCE-MRI kinetic feature extraction
+- Comprehensive radiomics analysis
+- NIfTI colormap generation (`*_colormap.nii.gz`) 
+- PNG visualization creation (`*_colormap_slice.png`)
+- ComBat harmonization across datasets
+- CSV output with raw and harmonized features
 
-### Βήμα 2: Εξαγωγή Χαρακτηριστικών και Εναρμόνιση
+### Step 2: Visualization Generation
 ```bash
-python harmonize_signals.py
+python combat_visualization.py
 ```
-Αυτό το script εκτελεί:
-- Εξαγωγή χαρακτηριστικών από αρχεία colormap
-- Εναρμόνιση ComBat σε datasets
-- Στατιστική ανάλυση και δημιουργία οπτικοποιήσεων
-- Δημιουργία περιεκτικών γραφημάτων σύγκρισης
+This script creates:
+- Reference kinetic curves visualization
+- Dataset summary statistics
+- Before/After harmonization comparisons for Uptake, Plateau, Washout
+- Comprehensive visualization dashboard
 
 ---
 
-## Οδηγίες Χρήσης
-1. Κατεβάστε τα δεδομένα MAMA-MIA από [Synapse](https://www.synapse.org/Synapse:syn60868042/files/).
-2. Τοποθετήστε τα δεδομένα στους αντίστοιχους φακέλους όπως παραπάνω.
-3. Εγκαταστήστε τις απαραίτητες βιβλιοθήκες Python:
+## Usage
+1. Download the MAMA-MIA dataset from [Synapse](https://www.synapse.org/Synapse:syn60868042/files/).
+2. Place the data in the corresponding folders as shown above.
+3. Install required Python packages:
    ```bash
-   pip install nibabel numpy matplotlib SimpleITK pandas seaborn scipy neuroCombat
+   pip install nibabel numpy matplotlib SimpleITK pandas seaborn scipy neuroCombat pyradiomics
    ```
-4. **Βήμα 1 - Δημιουργία ψευδο-χρωματικών χαρτών:**
+4. **Step 1 - Run the complete pipeline:**
    ```bash
-   python process_all_data.py
+   python complete_pipeline.py
    ```
-   Αυτό δημιουργεί:
-   - `*_colormap.nii.gz` - Αρχεία NIfTI με ταξινομημένα voxels
-   - `*_colormap_slice.png` - Εικόνες οπτικοποίησης PNG
+   This creates:
+   - `*_colormap.nii.gz` - NIfTI files with classified voxels
+   - `*_colormap_slice.png` - PNG visualization images
+   - `complete_pipeline_raw_features.csv` - Features before harmonization
+   - `complete_pipeline_harmonized_features.csv` - Features after harmonization
 
-5. **Βήμα 2 - Εκτέλεση εναρμόνισης ComBat:**
+5. **Step 2 - Generate visualizations:**
    ```bash
-   python harmonize_signals.py
+   python combat_visualization.py
    ```
-   Αυτό δημιουργεί:
-   - `raw_features.csv` - Χαρακτηριστικά πριν την εναρμόνιση
-   - `harmonized_features.csv` - Χαρακτηριστικά μετά την εναρμόνιση
-   - Περιεκτικά γραφήματα ανάλυσης στον φάκελο `images/`
+   This generates:
+   - `images/combat_visualization.png` - Comprehensive visualization dashboard
 
-6. **Προβολή Αποτελεσμάτων:**
-   - Τα αρχεία NIfTI μπορούν να οπτικοποιηθούν με το [Mango Viewer](https://mangoviewer.com/) ή παρόμοια εργαλεία
-   - Τα γραφήματα ανάλυσης αποθηκεύονται αυτόματα στον φάκελο `images/`
-   - Στατιστικές περιλήψεις εκτυπώνονται στην κονσόλα κατά την εκτέλεση
+6. **View Results:**
+   - NIfTI files can be visualized using [Mango Viewer](https://mangoviewer.com/) or similar tools
+   - Analysis plots are automatically saved in the `images/` folder
+   - Statistical summaries are printed to the console during execution
 
-**Σημείωση**: Λόγω του μεγάλου μεγέθους των αρχείων εισόδου NIfTI (`*_0000.nii.gz`, `*_0001.nii.gz`), δεν περιλαμβάνονται σε αυτό το repository. Ωστόσο, τα αρχεία εξόδου (`*_colormap.nii.gz` και `*_colormap_slice.png`) περιλαμβάνονται για αναφορά.
+**Note**: Due to the large size of the NIfTI input files (`*_0000.nii.gz`, `*_0001.nii.gz`), they are not included in this repository. However, the processed output files (`*_colormap.nii.gz` and `*_colormap_slice.png`) are included for reference.
 
 ---
 
-## Απαιτήσεις
+## Requirements
 - Python 3.8+
 - nibabel
 - numpy
@@ -366,28 +527,37 @@ python harmonize_signals.py
 - scipy
 - pandas
 - neuroCombat
-- SimpleITK (προαιρετικό, για προχωρημένη επεξεργασία)
-- PyRadiomics (προαιρετικό, για εκτεταμένα radiomic χαρακτηριστικά)
+- SimpleITK
+- pyradiomics (for comprehensive feature extraction)
 
-## Στατιστικά Συνόλου Δεδομένων
-- **Συνολικές Περιπτώσεις που Επεξεργάστηκαν**: 40 περιπτώσεις σε 4 datasets
-- **DUKE**: 10 περιπτώσεις
-- **ISPY1**: 10 περιπτώσεις  
-- **ISPY2**: 10 περιπτώσεις
-- **NACT**: 10 περιπτώσεις
-- **Χαρακτηριστικά που Αναλύθηκαν**: Ποσοστό Uptake, Ποσοστό Plateau, Ποσοστό Washout
-- **Μέθοδος Εναρμόνισης**: ComBat (υλοποίηση neuroCombat)
+## Unified Pipeline Features
+The new unified pipeline provides several advantages over the previous separate scripts:
+
+1. **One-step Processing**: Complete DCE-MRI analysis from raw images to harmonized features in a single script
+2. **Enhanced Feature Set**: Combines basic kinetic features with comprehensive radiomics
+3. **Improved Visualization**: Creates standardized visualizations for both individual cases and dataset-wide analysis
+4. **Automated Harmonization**: Performs ComBat harmonization with detailed statistical outputs
+5. **Consistent File Naming**: Uses consistent naming conventions across all output files
+
+## Dataset Statistics
+- **Total Cases Processed**: 40 cases across 4 datasets
+- **DUKE**: 10 cases
+- **ISPY1**: 10 cases  
+- **ISPY2**: 10 cases
+- **NACT**: 10 cases
+- **Features Analyzed**: Uptake percentage, Plateau percentage, Washout percentage
+- **Harmonization Method**: ComBat (neuroCombat implementation)
 
 ---
 
-## Βιβλιογραφία
+## References
 - [MAMA-MIA Dataset](https://www.synapse.org/Synapse:syn60868042/files/)
 - [PyRadiomics Documentation](https://pyradiomics.readthedocs.io/en/latest/)
 - [neuroCombat](https://github.com/Jfortin1/neuroCombat)
 
 ---
 
-## Credits
+## Contribution and Credits
 
 <p align="center">
   <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
@@ -397,3 +567,57 @@ python harmonize_signals.py
   <b>Developed by Kalaitzakis Nikolaos</b><br>
   Hellenic Mediterranean University
 </p>
+
+## Execution Timeline and Visualization
+
+The images in the `images/` folder document the execution of the unified pipeline:
+
+### Terminal Execution Timeline
+The terminal screenshots show the execution flow:
+
+1. **Launch** (`terminal_launch.png`): Initial setup and configuration
+2. **Execution** (`terminal_execute.png`): Processing of cases across datasets
+3. **Completion** (`terminal_final.png`): Final harmonization and results
+
+### ComBat Visualization
+The unified visualization (`combat_visualization.png`) provides a comprehensive dashboard with:
+
+1. **Left Panel**: Reference kinetic curves showing the ideal patterns for uptake, plateau, and washout
+2. **Center Panel**: Dataset statistics including:
+   - Number of cases per dataset
+   - Feature distributions before/after harmonization
+   - Batch effect reduction metrics
+3. **Right Panels**: Before/After harmonization comparisons for:
+   - Uptake percentage
+   - Plateau percentage
+   - Washout percentage
+
+This visualization provides a quick overview of the harmonization effectiveness across different study centers.
+
+---
+
+## Χρονολόγιο Εκτέλεσης και Οπτικοποίηση
+
+Οι εικόνες στον φάκελο `images/` τεκμηριώνουν την εκτέλεση του ενοποιημένου pipeline:
+
+### Χρονολόγιο Εκτέλεσης Τερματικού
+Τα στιγμιότυπα του τερματικού δείχνουν τη ροή εκτέλεσης:
+
+1. **Εκκίνηση** (`terminal_launch.png`): Αρχική ρύθμιση και διαμόρφωση
+2. **Εκτέλεση** (`terminal_execute.png`): Επεξεργασία περιπτώσεων σε όλα τα σύνολα δεδομένων
+3. **Ολοκλήρωση** (`terminal_final.png`): Τελική εναρμόνιση και αποτελέσματα
+
+### Οπτικοποίηση ComBat
+Η ενοποιημένη οπτικοποίηση (`combat_visualization.png`) παρέχει ένα περιεκτικό dashboard με:
+
+1. **Αριστερό Πάνελ**: Καμπύλες αναφοράς κινητικής που δείχνουν τα ιδανικά μοτίβα για uptake, plateau και washout
+2. **Κεντρικό Πάνελ**: Στατιστικά συνόλου δεδομένων που περιλαμβάνουν:
+   - Αριθμό περιπτώσεων ανά σύνολο δεδομένων
+   - Κατανομές χαρακτηριστικών πριν/μετά την εναρμόνιση
+   - Μετρικές μείωσης batch effect
+3. **Δεξιά Πάνελ**: Συγκρίσεις Πριν/Μετά την εναρμόνιση για:
+   - Ποσοστό uptake
+   - Ποσοστό plateau
+   - Ποσοστό washout
+
+Αυτή η οπτικοποίηση παρέχει μια γρήγορη επισκόπηση της αποτελεσματικότητας της εναρμόνισης σε διαφορετικά κέντρα μελέτης.
