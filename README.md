@@ -1,4 +1,4 @@
-# MAMA-MIA DCE-MRI Analysis Project
+﻿# MAMA-MIA DCE-MRI Analysis Project
 
 <p align="center">
   <img src="images/mamamia_logo.png" alt="MAMA-MIA Logo" width="200"/>
@@ -35,7 +35,7 @@ This project provides a unified pipeline for the analysis of dynamic contrast-en
 
 ### Example 4: Dynamic Colormap Animation (DUKE_099)
 <p align="center">
-  <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
+  <img src="images/colormap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
 
 ### Example 5: ComBat Harmonization Visualization
@@ -95,7 +95,7 @@ This project provides a unified pipeline for the analysis of dynamic contrast-en
   - `complete_pipeline_normalized_features.csv`: Features after normalization
   - `complete_pipeline_harmonized_features.csv`: Features after ComBat harmonization
   - `images/combat_visualization.png`: Comprehensive analysis showing before/after harmonization
-  - `images/colomap_*.gif`: Dynamic visualization of colormap analysis
+  - `images/colormap_*.gif`: Dynamic visualization of colormap analysis
 
 The `complete_pipeline.py` script automatically generates these output files by:
 1. Loading the pre and post-contrast images
@@ -211,7 +211,7 @@ This unified script processes all cases and performs:
 - Enhanced DCE-MRI kinetic feature extraction
 - Comprehensive radiomics analysis
 - NIfTI colormap generation (`*_colormap.nii.gz`) 
-- PNG visualization creation (`*_colormap_slice.png`)
+- PNG visualization creation (`*_complete_colormap.png`)
 - ComBat harmonization across datasets
 - CSV output with raw and harmonized features
 
@@ -224,39 +224,6 @@ This script creates:
 - Dataset summary statistics
 - Before/After harmonization comparisons for Uptake, Plateau, Washout
 - Comprehensive visualization dashboard
-
----
-
-## Usage
-1. Download the MAMA-MIA dataset from [Synapse](https://www.synapse.org/Synapse:syn60868042/files/).
-2. Place the data in the corresponding folders as shown above.
-3. Install required Python packages:
-   ```bash
-   pip install nibabel numpy matplotlib SimpleITK pandas seaborn scipy neuroCombat pyradiomics
-   ```
-4. **Step 1 - Run the complete pipeline:**
-   ```bash
-   python complete_pipeline.py
-   ```
-   This creates:
-   - `*_colormap.nii.gz` - NIfTI files with classified voxels
-   - `*_colormap_slice.png` - PNG visualization images
-   - `complete_pipeline_raw_features.csv` - Features before harmonization
-   - `complete_pipeline_harmonized_features.csv` - Features after harmonization
-
-5. **Step 2 - Generate visualizations:**
-   ```bash
-   python combat_visualization.py
-   ```
-   This generates:
-   - `images/combat_visualization.png` - Comprehensive visualization dashboard
-
-6. **View Results:**
-   - NIfTI files can be visualized using [Mango Viewer](https://mangoviewer.com/) or similar tools
-   - Analysis plots are automatically saved in the `images/` folder
-   - Statistical summaries are printed to the console during execution
-
-**Note**: Due to the large size of the NIfTI input files (`*_0000.nii.gz`, `*_0001.nii.gz`), they are not included in this repository. However, the processed output files (`*_colormap.nii.gz` and `*_colormap_slice.png`) are included for reference.
 
 ---
 
@@ -353,7 +320,7 @@ The new unified pipeline provides several advantages over the previous separate 
   - `complete_pipeline_normalized_features.csv`: Χαρακτηριστικά μετά την κανονικοποίηση
   - `complete_pipeline_harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat
   - `images/combat_visualization.png`: Περιεκτική ανάλυση που δείχνει πριν/μετά την εναρμόνιση
-  - `images/colomap_*.gif`: Δυναμική οπτικοποίηση της ανάλυσης colormap
+  - `images/colormap_*.gif`: Δυναμική οπτικοποίηση της ανάλυσης colormap
 
 Το script `complete_pipeline.py` δημιουργεί αυτόματα αυτά τα αρχεία εξόδου:
 1. Φορτώνοντας τις εικόνες πριν και μετά το σκιαγραφικό
@@ -366,22 +333,6 @@ The new unified pipeline provides several advantages over the previous separate 
 8. Δημιουργώντας τελική έξοδο CSV με όλα τα δεδομένα χαρακτηριστικών
 
 ---
-
-## Ονοματοδοσία Αρχείων
-
-Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
-
-1. **Αρχεία Εισόδου:**
-   - Αρχικό DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ. `DUKE_032_0000.nii.gz`)
-   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ. `DUKE_032.nii.gz`)
-
-2. **Αρχεία Εξόδου:**
-   - NIfTI Colormaps: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ. `DUKE_032_colormap.nii.gz`)
-   - PNG Οπτικοποιήσεις: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ. `DUKE_032_complete_colormap.png`)
-   - Ακατέργαστα Χαρακτηριστικά: `complete_pipeline_raw_features.csv`
-   - Κανονικοποιημένα Χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
-   - Εναρμονισμένα Χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
-   - Οπτικοποίηση: `images/combat_visualization.png`
 
 ## Συμβάσεις Ονοματοδοσίας Αρχείων
 
@@ -459,8 +410,6 @@ The new unified pipeline provides several advantages over the previous separate 
 
 ---
 
-## Unified Pipeline Workflow
-
 ### Step 1: Complete Pipeline Execution
 ```bash
 python complete_pipeline.py
@@ -469,7 +418,7 @@ This unified script processes all cases and performs:
 - Enhanced DCE-MRI kinetic feature extraction
 - Comprehensive radiomics analysis
 - NIfTI colormap generation (`*_colormap.nii.gz`) 
-- PNG visualization creation (`*_colormap_slice.png`)
+- PNG visualization creation (`*_complete_colormap.png`)
 - ComBat harmonization across datasets
 - CSV output with raw and harmonized features
 
@@ -482,39 +431,6 @@ This script creates:
 - Dataset summary statistics
 - Before/After harmonization comparisons for Uptake, Plateau, Washout
 - Comprehensive visualization dashboard
-
----
-
-## Usage
-1. Download the MAMA-MIA dataset from [Synapse](https://www.synapse.org/Synapse:syn60868042/files/).
-2. Place the data in the corresponding folders as shown above.
-3. Install required Python packages:
-   ```bash
-   pip install nibabel numpy matplotlib SimpleITK pandas seaborn scipy neuroCombat pyradiomics
-   ```
-4. **Step 1 - Run the complete pipeline:**
-   ```bash
-   python complete_pipeline.py
-   ```
-   This creates:
-   - `*_colormap.nii.gz` - NIfTI files with classified voxels
-   - `*_colormap_slice.png` - PNG visualization images
-   - `complete_pipeline_raw_features.csv` - Features before harmonization
-   - `complete_pipeline_harmonized_features.csv` - Features after harmonization
-
-5. **Step 2 - Generate visualizations:**
-   ```bash
-   python combat_visualization.py
-   ```
-   This generates:
-   - `images/combat_visualization.png` - Comprehensive visualization dashboard
-
-6. **View Results:**
-   - NIfTI files can be visualized using [Mango Viewer](https://mangoviewer.com/) or similar tools
-   - Analysis plots are automatically saved in the `images/` folder
-   - Statistical summaries are printed to the console during execution
-
-**Note**: Due to the large size of the NIfTI input files (`*_0000.nii.gz`, `*_0001.nii.gz`), they are not included in this repository. However, the processed output files (`*_colormap.nii.gz` and `*_colormap_slice.png`) are included for reference.
 
 ---
 
@@ -567,3 +483,4 @@ The new unified pipeline provides several advantages over the previous separate 
   <b>Developed by Kalaitzakis Nikolaos</b><br>
   Hellenic Mediterranean University
 </p>
+
