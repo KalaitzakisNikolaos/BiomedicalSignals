@@ -483,7 +483,3 @@ The new unified pipeline provides several advantages over the previous separate 
   <b>Developed by Kalaitzakis Nikolaos</b><br>
   Hellenic Mediterranean University
 </p>
-<<<<<<< HEAD
-
-=======
->>>>>>> b5aa2647f911c8db5f0f6f26f085ffaab08988df
