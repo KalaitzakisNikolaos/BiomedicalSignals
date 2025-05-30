@@ -7,7 +7,7 @@
 ---
 
 ## Overview
-This project provides a unified pipeline for the analysis of dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
+This project provides a pipeline for the analysis of dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
 
 1. **Biomarker Extraction** from DCE-MRI sequences with contrast agent.
 2. **Pseudo-color Map Generation** based on biomarker characteristics.
