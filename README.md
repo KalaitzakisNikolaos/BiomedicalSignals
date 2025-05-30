@@ -35,7 +35,7 @@ This project provides a pipeline for the analysis of dynamic contrast-enhanced m
 
 ### Example 4: Dynamic Colormap Animation (DUKE_099)
 <p align="center">
-  <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
+  <img src="images/colormap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
 
 ### Example 5: ComBat Harmonization Visualization
@@ -383,30 +383,6 @@ The new unified pipeline provides several advantages over the previous separate 
 3. **Εναρμονισμένα Χαρακτηριστικά** (`complete_pipeline_harmonized_features.csv`):
    - Τελικά χαρακτηριστικά μετά την εναρμόνιση ComBat
    - Τα batch effects έχουν αφαιρεθεί διατηρώντας τη βιολογική διακύμανση
-
----
-
-## Detailed Steps
-
-### 1. Biomarker Extraction
-- For each case, extract the region of interest (ROI) using the provided segmentation mask.
-- Use Python libraries (e.g., nibabel, numpy) to process the NIfTI images.
-- Extract intensity values for the ROI at timepoints 0000 and 0001.
-
-### 2. Pseudo-color Map Generation
-- For each voxel in the ROI, calculate the intensity change between timepoints (e.g., 0000 and 0001).
-- Classify each voxel into:
-  - **Uptake (1):** >10% increase
-  - **Plateau (2):** ~10% change
-  - **Washout (3):** <10% decrease
-- Save the resulting classification map as a new NIfTI image.
-
-### 3. Signal Harmonization (ComBat)
-- Extract statistical features from the pseudo-color maps (uptake%, plateau%, washout%).
-- Apply ComBat harmonization using the `neuroCombat` library to reduce batch effects.
-- Generate comprehensive comparison plots showing before/after harmonization results.
-- Calculate harmonization metrics including variance reduction and F-statistics.
-- Save harmonized features and create detailed visualizations of the harmonization effect.
 
 ---
 
