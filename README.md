@@ -33,7 +33,7 @@ This project provides a pipeline for the analysis of dynamic contrast-enhanced m
   <img src="ISPY1/ISPY1_1034/ISPY1_1034_complete_colormap.png" alt="Pseudo-color Map" width="400"/>
 </p>
 
-### Example 4: Dynamic Colormap Animation (DUKE_099)
+### Example 4: Dynamic Animation (DUKE_099)
 <p align="center">
   <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
