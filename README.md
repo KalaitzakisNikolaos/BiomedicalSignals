@@ -35,7 +35,7 @@ This project provides a pipeline for the analysis of dynamic contrast-enhanced m
 
 ### Example 4: Dynamic Colormap Animation (DUKE_099)
 <p align="center">
-  <img src="images/colormap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
+  <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
 
 ### Example 5: ComBat Harmonization Visualization
