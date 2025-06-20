@@ -125,22 +125,6 @@ The unified pipeline uses consistent file naming conventions:
    - Harmonized Features: `complete_pipeline_harmonized_features.csv`
    - Visualization: `images/combat_visualization.png`
 
-## Συμβάσεις Ονοματοδοσίας Αρχείων
-
-Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
-
-1. **Αρχεία Εισόδου:**
-   - Αρχικά DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ., `DUKE_032_0000.nii.gz`)
-   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ., `DUKE_032.nii.gz`)
-
-2. **Αρχεία Εξόδου:**
-   - NIfTI Χρωματικοί χάρτες: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ., `DUKE_032_colormap.nii.gz`)
-   - Οπτικοποιήσεις PNG: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ., `DUKE_032_complete_colormap.png`)
-   - Ακατέργαστα χαρακτηριστικά: `complete_pipeline_raw_features.csv`
-   - Κανονικοποιημένα χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
-   - Εναρμονισμένα χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
-   - Οπτικοποίηση: `images/combat_visualization.png`
-
 ## Detailed Outputs
 
 ### 1. Colormap NIfTI Files
