@@ -74,12 +74,13 @@ This project provides a pipeline for the analysis of dynamic contrast-enhanced m
   - Used to identify the tumor or tissue areas for analysis
 
 ### Output Files (Included in repository)
-- **Pseudo-color Maps:** `*_colormap.nii.gz` (e.g., `DUKE_032_colormap.nii.gz`)
-  - NIfTI format images containing the classified voxels:
-  - Value 0: Background (no ROI)
-  - Value 1: Uptake (>10% intensity increase)
-  - Value 2: Plateau (-10% to +10% intensity change)
-  - Value 3: Washout (<-10% intensity decrease)
+- **RGB Pseudo-color Maps:** `*_colormap.nii.gz` (e.g., `DUKE_032_colormap.nii.gz`)
+  - Enhanced RGB-encoded NIfTI format for direct visualization in viewers like Mango
+  - Shows the underlying MRI as grayscale background with colored overlay:
+    - Blue: Uptake (>15% intensity increase)
+    - Green: Plateau (between -5% and +15% intensity change)
+    - Red: Washout (<-5% intensity decrease)
+  - Compatible with standard DICOM viewers that support RGB NIfTI format
   
 - **Visualization Images:** `*_complete_colormap.png` (e.g., `DUKE_032_complete_colormap.png`)
   - PNG images showing a central slice of the pseudo-color map
@@ -283,7 +284,13 @@ The new unified pipeline provides several advantages over the previous separate 
   - Χρησιμοποιούνται για την αναγνώριση των περιοχών του όγκου ή ιστού προς ανάλυση
 
 ### Αρχεία Εξόδου (Περιλαμβάνονται στο repository)
-- **Ψευδο-χρωματικοί Χάρτες:** `*_colormap.nii.gz` (π.χ. `DUKE_032_colormap.nii.gz`)
+- **Ψευδο-χρωματικοί Χάρτες RGB:** `*_colormap.nii.gz` (π.χ. `DUKE_032_colormap.nii.gz`)
+  - Αρχεία NIfTI βελτιωμένης οπτικοποίησης με κωδικοποίηση RGB
+  - Εμφανίζουν το υποκείμενο MRI ως γκρι υπόβαθρο με έγχρωμη επικάλυψη:
+    - Μπλε: Περιοχές αύξησης σήματος (Uptake)
+    - Πράσινο: Περιοχές σταθερού σήματος (Plateau)
+    - Κόκκινο: Περιοχές μείωσης σήματος (Washout)
+  - Συμβατά με προγράμματα προβολής DICOM όπως το Mango
   - Εικόνες σε μορφή NIfTI που περιέχουν τα ταξινομημένα voxels:
   - Τιμή 0: Φόντο (χωρίς ROI)
   - Τιμή 1: Uptake (>10% αύξηση έντασης)
@@ -435,9 +442,26 @@ The new unified pipeline provides several advantages over the previous separate 
 
 ## Contribution and Credits
 
-<p align="center">
-  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
+<p align="center">  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
 </p>
+
+---
+
+## RGB NIfTI Visualization Enhancement
+
+### New Features (June 2025)
+- **Enhanced Visualization**: RGB-encoded NIfTI files now show the underlying MRI grayscale image
+- **Improved Compatibility**: Works directly with viewers like Mango without post-processing
+- **Visual Clarity**: Clear distinction between tissue regions with colorized overlays
+
+### Converting Existing Colormaps
+To convert previously generated colormaps to the RGB format with visible background:
+```bash
+python rgb_nifti_converter.py
+```
+This utility will process all datasets and replace standard colormaps with RGB-encoded versions.
+
+---
 
 <p align="center">
   <b>Developed by Kalaitzakis Nikolaos</b><br>
