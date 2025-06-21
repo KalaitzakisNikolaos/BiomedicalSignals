@@ -188,20 +188,20 @@ class CompleteDCEMRIPipeline:
                     t1_val = float(features_t1[key])
                     if t0_val != 0:
                         change = (t1_val - t0_val) / t0_val * 100
-                        combined_features[f'temporal_change_{key}'] = change
+                        combined_features[f'temporal_change_{key}'] = change                
                 except:
                     continue
         
         return combined_features
-
     def save_colormap_files(self, case_id, case_path, img_0000, colormap, mask, tp0_file):
-        """Save both NIfTI colormap and PNG visualization"""
+        """Save RGB NIfTI colormap and PNG visualization"""
         
-        # 1. Save NIfTI colormap file (for harmonization compatibility)
-        out_img = nib.Nifti1Image(colormap.astype(np.uint8), affine=nib.load(tp0_file).affine)
-        nifti_out_path = os.path.join(case_path, f"{case_id}_colormap.nii.gz")
-        nib.save(out_img, nifti_out_path)
-        print(f"    Saved NIfTI colormap: {nifti_out_path}")
+        # Import the convert_to_rgb_nifti function from rgb_nifti_converter
+        from rgb_nifti_converter import convert_to_rgb_nifti
+        
+        # Save RGB-encoded NIfTI for visualization in Mango and other viewers
+        rgb_nifti_out_path = os.path.join(case_path, f"{case_id}_colormap.nii.gz")  # Χρησιμοποιούμε το ίδιο όνομα για συμβατότητα
+        convert_to_rgb_nifti(tp0_file, colormap, rgb_nifti_out_path)
         
         # 2. Create enhanced PNG visualization
         colors = [
@@ -439,7 +439,62 @@ class CompleteDCEMRIPipeline:
         print(f"✓ PNG visualizations: Created for each case (*_complete_colormap.png)")
         print("\nPipeline completed successfully!")
         
-        return harmonized_df
+        return harmonized_df    
+    def save_final_rgb_nifti(self, img_ref_path: str, class_arr: np.ndarray, out_path: str):
+        """
+        Αποθηκεύει το colormap ως RGB NIfTI για συμβατότητα με προγράμματα απεικόνισης όπως το Mango
+        
+        Args:
+            img_ref_path: Διαδρομή προς το αρχείο αναφοράς για affine και header
+            class_arr: Πίνακας με τις κατηγορίες (1:Uptake, 2:Plateau, 3:Washout)
+            out_path: Διαδρομή για την αποθήκευση του RGB NIfTI αρχείου
+        """
+        # Βήματα 1-5: Δημιουργούμε το 4D array με τα χρώματα
+        # Φορτώνουμε την εικόνα αναφοράς με το ίδιο μέγεθος μέσω nibabel για να αποφύγουμε προβλήματα διαστάσεων
+        nii_orig = nib.load(img_ref_path)
+        mri_array = nii_orig.get_fdata()
+        
+        # Κανονικοποιούμε το υποκείμενο MRI ώστε να έχουμε grayscale background
+        # (μετατροπή σε 0-255 για απόχρωση του γκρι)
+        normalized_mri = ((mri_array - mri_array.min()) / (mri_array.max() - mri_array.min() + 1e-10) * 255).astype(np.uint8)
+        
+        # Δημιουργούμε RGB volume με την υποκείμενη εικόνα ως grayscale background
+        rgb_volume = np.zeros((*class_arr.shape, 3), dtype=np.uint8)
+        
+        # Ορίζουμε το grayscale background (αντιγράφουμε την ίδια τιμή σε R,G,B κανάλια)
+        for i in range(3):
+            rgb_volume[:, :, :, i] = normalized_mri
+        
+        # Παράγουμε τον χρωματικό χάρτη - τώρα θα εφαρμόζει τα χρώματα μόνο στις περιοχές ενδιαφέροντος
+        colors = {
+            1: [0, 0, 255],    # Uptake  -> Μπλε
+            2: [0, 255, 0],    # Plateau -> Πράσινο
+            3: [255, 0, 0]     # Washout -> Κόκκινο
+        }
+        for class_value, color_rgb in colors.items():
+            mask = (class_arr == class_value)
+            # Εφαρμόζουμε το κάθε χρώμα στα voxel της αντίστοιχης κλάσης
+            for i, c in enumerate(color_rgb):
+                rgb_volume[mask, i] = c# Βήμα 6-7: Μετατρέπουμε το array σε μορφή συμβατή με RGB NIfTI
+        # Ορίζουμε τον ειδικό τύπο δεδομένων
+        rgb_dtype = np.dtype([('R', np.uint8), ('G', np.uint8), ('B', np.uint8)])
+        
+        # Αναδιαμορφώνουμε το array ώστε να είναι συμβατό με το view
+        # από (X,Y,Z,3) σε κατάλληλη μορφή για το nibabel
+        # Χρησιμοποιούμε τη μέθοδο reshape για να αποφύγουμε προβλήματα με τα views
+        reshaped = np.zeros(class_arr.shape, dtype=rgb_dtype)
+        reshaped['R'] = rgb_volume[:, :, :, 0]
+        reshaped['G'] = rgb_volume[:, :, :, 1]
+        reshaped['B'] = rgb_volume[:, :, :, 2]        # Βήμα 9: Δημιουργία του τελικού NIfTI object με τα *σωστά* δεδομένα
+        rgb_nii = nib.Nifti1Image(reshaped, nii_orig.affine, header=nii_orig.header)
+
+        # Βήμα 10: Ρύθμιση του header για το RGB NIfTI
+        rgb_nii.header['datatype'] = 128  # RGB24
+        rgb_nii.header['bitpix'] = 24     # 24-bit RGB
+
+        # Βήμα 11: Αποθήκευση
+        nib.save(rgb_nii, out_path)
+        print(f"    Saved RGB NIfTI colormap: {out_path}")
 
 def main():
     """Main execution function"""
