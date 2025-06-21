@@ -33,9 +33,9 @@ This project provides a pipeline for the analysis of dynamic contrast-enhanced m
   <img src="ISPY1/ISPY1_1034/ISPY1_1034_complete_colormap.png" alt="Pseudo-color Map" width="400"/>
 </p>
 
-### Example 4: Dynamic Colormap Animation (DUKE_099)
+### Example 4: Dynamic Animation (DUKE_099)
 <p align="center">
-  <img src="images/colormap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
+  <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
 
 ### Example 5: ComBat Harmonization Visualization
@@ -124,22 +124,6 @@ The unified pipeline uses consistent file naming conventions:
    - Normalized Features: `complete_pipeline_normalized_features.csv`
    - Harmonized Features: `complete_pipeline_harmonized_features.csv`
    - Visualization: `images/combat_visualization.png`
-
-## Συμβάσεις Ονοματοδοσίας Αρχείων
-
-Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
-
-1. **Αρχεία Εισόδου:**
-   - Αρχικά DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ., `DUKE_032_0000.nii.gz`)
-   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ., `DUKE_032.nii.gz`)
-
-2. **Αρχεία Εξόδου:**
-   - NIfTI Χρωματικοί χάρτες: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ., `DUKE_032_colormap.nii.gz`)
-   - Οπτικοποιήσεις PNG: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ., `DUKE_032_complete_colormap.png`)
-   - Ακατέργαστα χαρακτηριστικά: `complete_pipeline_raw_features.csv`
-   - Κανονικοποιημένα χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
-   - Εναρμονισμένα χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
-   - Οπτικοποίηση: `images/combat_visualization.png`
 
 ## Detailed Outputs
 
