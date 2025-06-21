@@ -440,16 +440,11 @@ The new unified pipeline provides several advantages over the previous separate 
 
 ---
 
-## Contribution and Credits
-
-<p align="center">  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
-</p>
-
 ---
 
 ## RGB NIfTI Visualization Enhancement
 
-### New Features (June 2025)
+### Features 
 - **Enhanced Visualization**: RGB-encoded NIfTI files now show the underlying MRI grayscale image
 - **Improved Compatibility**: Works directly with viewers like Mango without post-processing
 - **Visual Clarity**: Clear distinction between tissue regions with colorized overlays
@@ -462,6 +457,11 @@ python rgb_nifti_converter.py
 This utility will process all datasets and replace standard colormaps with RGB-encoded versions.
 
 ---
+
+## Contribution and Credits
+
+<p align="center">  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
+</p>
 
 <p align="center">
   <b>Developed by Kalaitzakis Nikolaos</b><br>
