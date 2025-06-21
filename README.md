@@ -110,6 +110,79 @@ The `complete_pipeline.py` script automatically generates these output files by:
 
 ---
 
+## 🎯 Interactive Dashboard Suite
+
+The project now includes a comprehensive suite of interactive dashboards for advanced feature exploration and visualization with multiple interface levels:
+
+### 🌌 Ultra-Advanced Dashboard (`ultra_advanced_dashboard.py`)
+**Next-generation quantum-inspired interface featuring:**
+- **Quantum-inspired themes**: Dynamic color schemes (Cyber, Neon, Aurora, Quantum)
+- **3D Neural Explorer**: Multi-dimensional feature space visualization
+- **Holographic PCA**: Advanced principal component analysis with 3D effects
+- **AI Pattern Recognition**: t-SNE analysis with neural network styling
+- **Real-time streaming**: Live data visualization simulation
+- **Advanced animations**: Particle effects, neural backgrounds, morphing charts
+- **Smart insights**: AI-powered analysis recommendations
+
+### 📊 Enhanced Dashboard (`enhanced_dashboard.py`)
+**Modern interface with sophisticated features:**
+- Glass-morphism design with animated transitions
+- Floating particle effects and gradient backgrounds
+- Advanced PCA and clustering analysis
+- Interactive scatter plots and correlation matrices
+- Modern responsive design
+
+### 🎯 Interactive Dashboard (`interactive_dashboard.py`)
+**Essential features with clean interface:**
+- Core visualization capabilities
+- Basic PCA and clustering
+- Standard interactive plots
+- Functional analysis tools
+
+### Quick Launch
+```bash
+# Ultra-Advanced Experience (recommended)
+python ultra_advanced_dashboard.py
+
+# Windows Batch Launcher (Command Prompt)
+launch_ultra_dashboard.bat
+
+# Windows PowerShell Launcher
+.\launch_ultra_dashboard.bat
+# OR the PowerShell version
+.\launch_ultra_dashboard.ps1
+
+# Enhanced Experience
+python enhanced_dashboard.py
+
+# Basic Experience
+python interactive_dashboard.py
+
+# Access at: http://127.0.0.1:8050
+```
+
+### Core Features (All Versions)
+- **Real-time Feature Exploration**: Interactive filtering by dataset, processing stage, and feature category
+- **Multi-dimensional Visualizations**: Box plots, correlation matrices, heatmaps, and scatter plots
+- **Advanced Analytics**: PCA analysis, K-means clustering, and dimensionality reduction
+- **Time-series Analysis**: Kinetic curve visualization and enhancement pattern analysis
+- **Statistical Summaries**: Comprehensive feature statistics and dataset comparisons
+
+### Dashboard Sections
+1. **Feature Overview**: Distribution analysis and correlation matrices
+2. **Correlation Analysis**: Comprehensive feature relationship exploration
+3. **Time-series Analysis**: Kinetic curve patterns and enhancement dynamics
+4. **PCA Analysis**: Principal component analysis and variance explanation
+5. **Clustering Analysis**: K-means clustering and pattern identification
+
+### Data Sources
+The dashboard automatically loads and analyzes three feature datasets:
+- `complete_pipeline_raw_features.csv` - Original extracted features
+- `complete_pipeline_normalized_features.csv` - Normalized features
+- `complete_pipeline_harmonized_features.csv` - ComBat harmonized features
+
+---
+
 ## File Naming Conventions
 
 The unified pipeline uses consistent file naming conventions:
@@ -224,194 +297,16 @@ This script creates:
 - SimpleITK
 - pyradiomics (for comprehensive feature extraction)
 
-## Unified Pipeline Features
-The new unified pipeline provides several advantages over the previous separate scripts:
+### 🎮 Interactive Dashboard Requirements
+For the advanced interactive dashboard functionality:
+- **dash** - Web application framework
+- **plotly** - Interactive visualization library  
+- **scikit-learn** - Machine learning tools for PCA and clustering
 
-1. **One-step Processing**: Complete DCE-MRI analysis from raw images to harmonized features in a single script
-2. **Enhanced Feature Set**: Combines basic kinetic features with comprehensive radiomics
-3. **Improved Visualization**: Creates standardized visualizations for both individual cases and dataset-wide analysis
-4. **Automated Harmonization**: Performs ComBat harmonization with detailed statistical outputs
-5. **Consistent File Naming**: Uses consistent naming conventions across all output files
-
-## Dataset Statistics
-- **Total Cases Processed**: 40 cases across 4 datasets
-- **DUKE**: 10 cases
-- **ISPY1**: 10 cases  
-- **ISPY2**: 10 cases
-- **NACT**: 10 cases
-- **Features Analyzed**: Uptake percentage, Plateau percentage, Washout percentage
-- **Harmonization Method**: ComBat (neuroCombat implementation)
-
----
-
-## References
-- [MAMA-MIA Dataset](https://www.synapse.org/Synapse:syn60868042/files/)
-- [PyRadiomics Documentation](https://pyradiomics.readthedocs.io/en/latest/)
-- [neuroCombat](https://github.com/Jfortin1/neuroCombat)
-
----
-
-# Ελληνικά
-
-## Περιγραφή
-Αυτό το έργο παρέχει μια πλήρη ροή ανάλυσης για δεδομένα DCE-MRI από τη δημόσια βάση MAMA-MIA. Περιλαμβάνει:
-
-1. **Εξαγωγή βιοσημάτων** από ακολουθίες DCE-MRI με σκιαγραφικό.
-2. **Δημιουργία ψευδο-χρωματικού χάρτη** με βάση τα χαρακτηριστικά του βιοσήματος.
-3. **Ομογενοποίηση σημάτων** με τη μέθοδο ComBat για πολυκεντρικά δεδομένα.
-
----
-
-## Δομή Έργου
-- `DUKE/`, `ISPY1/`, `ISPY2/`, `NACT/`: Φάκελοι για κάθε ομάδα με υποφακέλους για κάθε περίπτωση και τα αντίστοιχα χρονικά σημεία DCE-MRI (π.χ. `*_0000.nii.gz`, `*_0001.nii.gz`, ...).
-- `segment/`: Περιέχει τις μάσκες τμηματοποίησης για κάθε περίπτωση (π.χ. `DUKE_032.nii.gz`).
-- `complete_pipeline.py`: Ενοποιημένο Python script για όλη τη ροή DCE-MRI. Συνδυάζει ενισχυμένη εξαγωγή χαρακτηριστικών, ανάλυση radiomics, δημιουργία NIfTI colormap, και εναρμόνιση ComBat σε ένα ενιαίο αρχείο.
-- `combat_visualization.py`: Ενοποιημένο script οπτικοποίησης για τη δημιουργία περιεκτικών οπτικοποιήσεων εναρμόνισης.
-- `images/`: Περιέχει παραδείγματα εικόνων, λογότυπα και αποτελέσματα ανάλυσης για αυτό το README.
-- `complete_pipeline_raw_features.csv`: Ακατέργαστα εξαγόμενα χαρακτηριστικά πριν την εναρμόνιση.
-- `complete_pipeline_harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat.
-
-## Αρχεία Δεδομένων
-
-### Αρχεία Εισόδου (Δεν περιλαμβάνονται λόγω περιορισμών μεγέθους)
-- **Χρονικά Σημεία DCE-MRI:** `*_0000.nii.gz`, `*_0001.nii.gz` (π.χ. `DUKE_032_0000.nii.gz`, `DUKE_032_0001.nii.gz`)
-  - Είναι οι ακατέργαστες εικόνες σε μορφή NIfTI από το σύνολο δεδομένων MAMA-MIA
-  - `*_0000.nii.gz`: Εικόνα πριν το σκιαγραφικό (t=0)
-  - `*_0001.nii.gz`: Εικόνα μετά το σκιαγραφικό (t=1)
-  
-- **Αρχεία Τμηματοποίησης:** `*/segment/*.nii.gz` (π.χ. `DUKE/segment/DUKE_032.nii.gz`)
-  - Τα αρχεία αυτά περιέχουν τις τμηματοποιήσεις (μάσκες) των περιοχών ενδιαφέροντος (ROI)
-  - Χρησιμοποιούνται για την αναγνώριση των περιοχών του όγκου ή ιστού προς ανάλυση
-
-### Αρχεία Εξόδου (Περιλαμβάνονται στο repository)
-- **Ψευδο-χρωματικοί Χάρτες RGB:** `*_colormap.nii.gz` (π.χ. `DUKE_032_colormap.nii.gz`)
-  - Αρχεία NIfTI βελτιωμένης οπτικοποίησης με κωδικοποίηση RGB
-  - Εμφανίζουν το υποκείμενο MRI ως γκρι υπόβαθρο με έγχρωμη επικάλυψη:
-    - Μπλε: Περιοχές αύξησης σήματος (Uptake)
-    - Πράσινο: Περιοχές σταθερού σήματος (Plateau)
-    - Κόκκινο: Περιοχές μείωσης σήματος (Washout)
-  - Συμβατά με προγράμματα προβολής DICOM όπως το Mango
-  - Εικόνες σε μορφή NIfTI που περιέχουν τα ταξινομημένα voxels:
-  - Τιμή 0: Φόντο (χωρίς ROI)
-  - Τιμή 1: Uptake (>10% αύξηση έντασης)
-  - Τιμή 2: Plateau (-10% έως +10% μεταβολή έντασης)
-  - Τιμή 3: Washout (<-10% μείωση έντασης)
-  
-- **Εικόνες Οπτικοποίησης:** `*_complete_colormap.png` (π.χ. `DUKE_032_complete_colormap.png`)
-  - Εικόνες PNG που δείχνουν μια κεντρική τομή του ψευδο-χρωματικού χάρτη
-  - Χρωματική κωδικοποίηση:
-    - Μαύρο: Φόντο
-    - Μπλε: Uptake
-    - Πράσινο: Plateau
-    - Κόκκινο: Washout
-  - Περιλαμβάνουν υπόμνημα χρωμάτων για εύκολη ερμηνεία
-
-- **Αρχεία Ανάλυσης Χαρακτηριστικών:**
-  - `complete_pipeline_raw_features.csv`: Στατιστικά χαρακτηριστικά που εξάγονται από κάθε περίπτωση πριν την εναρμόνιση
-  - `complete_pipeline_normalized_features.csv`: Χαρακτηριστικά μετά την κανονικοποίηση
-  - `complete_pipeline_harmonized_features.csv`: Χαρακτηριστικά μετά την εναρμόνιση ComBat
-  - `images/combat_visualization.png`: Περιεκτική ανάλυση που δείχνει πριν/μετά την εναρμόνιση
-  - `images/colormap_*.gif`: Δυναμική οπτικοποίηση της ανάλυσης colormap
-
-Το script `complete_pipeline.py` δημιουργεί αυτόματα αυτά τα αρχεία εξόδου:
-1. Φορτώνοντας τις εικόνες πριν και μετά το σκιαγραφικό
-2. Εφαρμόζοντας τη μάσκα ROI για να απομονώσει την περιοχή ενδιαφέροντος
-3. Υπολογίζοντας την ποσοστιαία μεταβολή έντασης μεταξύ των χρονικών σημείων
-4. Ταξινομώντας κάθε voxel σύμφωνα με το μοτίβο ενίσχυσής του
-5. Εξάγοντας περιεκτικά χαρακτηριστικά radiomics από το ROI
-6. Αποθηκεύοντας τα αποτελέσματα ως αρχεία NIfTI (.nii.gz) και εικόνες οπτικοποίησης (.png)
-7. Κανονικοποιώντας και εναρμονίζοντας χαρακτηριστικά σε όλα τα σύνολα δεδομένων
-8. Δημιουργώντας τελική έξοδο CSV με όλα τα δεδομένα χαρακτηριστικών
-
----
-
-## Συμβάσεις Ονοματοδοσίας Αρχείων
-
-Το ενοποιημένο pipeline χρησιμοποιεί συνεπείς συμβάσεις ονοματοδοσίας αρχείων:
-
-1. **Αρχεία Εισόδου:**
-   - Αρχικά DCE-MRI: `{DATASET}_{CASEID}_{TIMEPOINT}.nii.gz` (π.χ., `DUKE_032_0000.nii.gz`)
-   - Μάσκες τμηματοποίησης: `{DATASET}_{CASEID}.nii.gz` (π.χ., `DUKE_032.nii.gz`)
-
-2. **Αρχεία Εξόδου:**
-   - NIfTI Χρωματικοί χάρτες: `{DATASET}_{CASEID}_colormap.nii.gz` (π.χ., `DUKE_032_colormap.nii.gz`)
-   - Οπτικοποιήσεις PNG: `{DATASET}_{CASEID}_complete_colormap.png` (π.χ., `DUKE_032_complete_colormap.png`)
-   - Ακατέργαστα χαρακτηριστικά: `complete_pipeline_raw_features.csv`
-   - Κανονικοποιημένα χαρακτηριστικά: `complete_pipeline_normalized_features.csv`
-   - Εναρμονισμένα χαρακτηριστικά: `complete_pipeline_harmonized_features.csv`
-   - Οπτικοποίηση: `images/combat_visualization.png`
-
-## Λεπτομερείς Έξοδοι
-
-### 1. Αρχεία NIfTI Χρωματικών Χαρτών
-
-Τα αρχεία NIfTI χρωματικών χαρτών (`*_colormap.nii.gz`) περιέχουν ταξινομήσεις voxel όπου:
-- Τιμή 0: Φόντο (χωρίς ROI)
-- Τιμή 1: Uptake (σημαντική ενίσχυση)
-- Τιμή 2: Plateau (σταθερή ενίσχυση)
-- Τιμή 3: Washout (μειούμενη ενίσχυση)
-
-### 2. Αρχεία Οπτικοποίησης PNG
-
-Οι οπτικοποιήσεις PNG (`*_complete_colormap.png`) δείχνουν:
-- Κεντρική τομή της περιοχής του όγκου
-- Μοτίβα κινητικής με χρωματική κωδικοποίηση
-- Υπόμνημα χρωμάτων
-- Αναγνωριστικό περίπτωσης
-
-### 3. Αρχεία Χαρακτηριστικών CSV
-
-Δημιουργούνται τρία αρχεία CSV με αυξανόμενα επίπεδα επεξεργασίας:
-
-1. **Ακατέργαστα Χαρακτηριστικά** (`complete_pipeline_raw_features.csv`):
-   - Άμεσες μετρήσεις χαρακτηριστικών πριν από οποιαδήποτε κανονικοποίηση
-   - Περιλαμβάνει αναγνωριστικό περίπτωσης, πηγή συνόλου δεδομένων και ακατέργαστα ποσοστά κινητικής
-
-2. **Κανονικοποιημένα Χαρακτηριστικά** (`complete_pipeline_normalized_features.csv`):
-   - Χαρακτηριστικά μετά την τυποποίηση εντός κάθε συνόλου δεδομένων
-   - Κανονικοποιεί τιμές για δίκαιη σύγκριση
-
-3. **Εναρμονισμένα Χαρακτηριστικά** (`complete_pipeline_harmonized_features.csv`):
-   - Τελικά χαρακτηριστικά μετά την εναρμόνιση ComBat
-   - Τα batch effects έχουν αφαιρεθεί διατηρώντας τη βιολογική διακύμανση
-
----
-
-### Step 1: Complete Pipeline Execution
+Install with:
 ```bash
-python complete_pipeline.py
+pip install dash plotly scikit-learn
 ```
-This unified script processes all cases and performs:
-- Enhanced DCE-MRI kinetic feature extraction
-- Comprehensive radiomics analysis
-- NIfTI colormap generation (`*_colormap.nii.gz`) 
-- PNG visualization creation (`*_complete_colormap.png`)
-- ComBat harmonization across datasets
-- CSV output with raw and harmonized features
-
-### Step 2: Visualization Generation
-```bash
-python combat_visualization.py
-```
-This script creates:
-- Reference kinetic curves visualization
-- Dataset summary statistics
-- Before/After harmonization comparisons for Uptake, Plateau, Washout
-- Comprehensive visualization dashboard
-
----
-
-## Requirements
-- Python 3.8+
-- nibabel
-- numpy
-- matplotlib
-- seaborn
-- scipy
-- pandas
-- neuroCombat
-- SimpleITK
-- pyradiomics (for comprehensive feature extraction)
 
 ## Unified Pipeline Features
 The new unified pipeline provides several advantages over the previous separate scripts:
@@ -462,6 +357,69 @@ python rgb_nifti_converter.py
 This utility will process all datasets and replace standard colormaps with RGB-encoded versions.
 
 ---
+
+## 🎉 Project Status & New Features (June 2025)
+
+### ✅ Completed Enhancements
+
+#### 1. RGB NIfTI Visualization Enhancement
+- **Enhanced RGB Output**: Colormap files now show underlying MRI as grayscale background
+- **Improved Compatibility**: Direct visualization in Mango and other DICOM viewers
+- **Conversion Utility**: `rgb_nifti_converter.py` for upgrading existing colormaps
+
+#### 2. Interactive Dashboard Implementation
+- **Comprehensive Web Interface**: Real-time feature exploration at `http://127.0.0.1:8050`
+- **Multi-dimensional Analysis**: PCA, clustering, correlation, and time-series analysis
+- **Dataset Comparison**: Cross-dataset harmonization visualization
+- **Export-ready Visualizations**: High-quality plots for research publications
+
+#### 3. Advanced Analytics
+- **Principal Component Analysis**: Dimensionality reduction and feature importance
+- **K-means Clustering**: Automatic patient subgroup identification  
+- **Statistical Comparisons**: Before/after harmonization analysis
+- **Interactive Filtering**: Real-time data exploration by dataset and feature type
+
+### 🚀 Quick Start Guide
+
+#### Run the Complete Pipeline
+```bash
+python complete_pipeline.py
+```
+
+#### Launch Interactive Dashboard
+```bash
+python dashboard_simple.py
+# OR double-click launch_dashboard.bat
+# Open browser to: http://127.0.0.1:8050
+```
+
+#### Convert Existing Colormaps to RGB
+```bash
+python rgb_nifti_converter.py
+```
+
+### 📊 Key Project Outputs
+
+1. **Enhanced Visualizations**
+   - RGB NIfTI files compatible with medical viewers
+   - Interactive web dashboard for comprehensive analysis
+   - Publication-ready statistical plots
+
+2. **Feature Analysis**
+   - Raw, normalized, and harmonized feature datasets
+   - Cross-dataset comparison and harmonization metrics
+   - Advanced statistical analysis and clustering
+
+3. **Clinical Applications**
+   - Improved tumor heterogeneity visualization
+   - Multi-center study compatibility through harmonization
+   - Automated patient subgroup identification
+
+### 🔬 Research Impact
+- **Standardized Processing**: Unified pipeline for DCE-MRI analysis
+- **Cross-site Compatibility**: ComBat harmonization removes batch effects
+- **Interactive Exploration**: Advanced dashboard for hypothesis generation
+- **Open Science**: Comprehensive documentation and reproducible workflows
 
 <p align="center">
   <b>Developed by Kalaitzakis Nikolaos</b><br>
