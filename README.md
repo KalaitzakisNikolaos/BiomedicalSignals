@@ -183,6 +183,98 @@ The dashboard automatically loads and analyzes three feature datasets:
 
 ---
 
+## 🌐 Advanced Web Dashboard
+
+The project now includes a comprehensive **Advanced Web Dashboard** for interactive analysis of DCE-MRI radiomics features! 
+
+### 🚀 Quick Launch
+```bash
+# Navigate to the website directory
+cd BiomedicalSignals/website
+
+# Launch the dashboard
+python launch.py
+
+# Open browser to: http://localhost:8050
+```
+
+### ✨ Key Features
+
+#### 🎨 **Modern UI/UX**
+- Beautiful, responsive Bootstrap design
+- Professional medical data color schemes
+- Animated transitions and modern typography
+- Mobile-friendly interface
+
+#### 📊 **Advanced Analytics**
+- **Feature Distribution Analysis**: Interactive histograms across datasets
+- **Correlation Analysis**: Advanced heatmaps with statistical significance
+- **Principal Component Analysis (PCA)**: Dimensionality reduction with explained variance
+- **Clustering Analysis**: K-means clustering with silhouette analysis
+- **Anomaly Detection**: Isolation Forest for outlier identification
+- **Feature Importance**: Random Forest-based feature ranking
+- **Data Exploration**: Interactive tables with filtering and sorting
+
+#### 🔬 **Radiomics Support**
+- **Multi-stage Analysis**: Raw, normalized, and harmonized features side-by-side
+- **Feature Categories**: Shape, first-order, GLCM, GLDM, GLRLM, GLSZM, NGTDM features
+- **Temporal Analysis**: Change features between DCE-MRI timepoints
+- **Kinetic Parameters**: Uptake, plateau, and washout percentages
+- **ComBat Harmonization**: Batch effect correction visualization
+
+#### 📈 **Interactive Visualizations**
+- Real-time filtering and parameter adjustment
+- Export-ready plots (PNG, SVG, PDF)
+- Hover information and selection highlighting
+- Zoom and pan capabilities
+
+### 🛠️ Technical Stack
+- **Frontend**: Dash, Plotly, Bootstrap 5
+- **Backend**: Python, Flask
+- **Analytics**: Scikit-learn, Pandas, NumPy
+- **Visualization**: Plotly.js with advanced interactivity
+
+### 📁 Website Structure
+```
+website/
+├── enhanced_app.py          # Main dashboard application
+├── visualizations.py       # Advanced visualization functions
+├── analytics.py            # ML and statistical analysis
+├── config.py               # Configuration and settings
+├── launch.py               # Easy launch script
+├── test_dashboard.py       # Comprehensive test suite
+├── requirements.txt        # Python dependencies
+└── README.md               # Detailed documentation
+```
+
+### 🎯 Dashboard Sections
+
+1. **📊 Dashboard Overview** - Key metrics and dataset summaries
+2. **🔍 Feature Analysis** - Interactive distribution and correlation analysis
+3. **🧠 Advanced Analytics** - PCA, clustering, and anomaly detection
+4. **📋 Data Explorer** - Comprehensive data table with filtering
+5. **⚙️ Settings** - Customizable analysis parameters
+
+### 💡 Use Cases
+
+- **Research**: Analyze radiomics features across different processing stages
+- **Quality Control**: Identify outliers and anomalies in DCE-MRI data
+- **Method Comparison**: Visualize effects of normalization and harmonization
+- **Feature Selection**: Identify most important features for analysis
+- **Exploratory Analysis**: Interactive discovery of data patterns
+
+### 🚀 Getting Started
+
+1. **Prerequisites**: Python 3.8+, pip
+2. **Installation**: All dependencies auto-installed via requirements.txt
+3. **Data**: Automatically loads CSV files from project directory
+4. **Launch**: Simple one-command startup with `python launch.py`
+5. **Access**: Open http://localhost:8050 in any modern browser
+
+The dashboard automatically validates all components before launch and provides helpful error messages for troubleshooting.
+
+---
+
 ## File Naming Conventions
 
 The unified pipeline uses consistent file naming conventions:
@@ -353,7 +445,6 @@ This utility will process all datasets and replace standard colormaps with RGB-e
 
 ---
 
-<<<<<<< HEAD
 ## 🎉 Project Status & New Features (June 2025)
 
 ### ✅ Completed Enhancements
@@ -416,12 +507,11 @@ python rgb_nifti_converter.py
 - **Cross-site Compatibility**: ComBat harmonization removes batch effects
 - **Interactive Exploration**: Advanced dashboard for hypothesis generation
 - **Open Science**: Comprehensive documentation and reproducible workflows
-=======
+
 ## Contribution and Credits
 
 <p align="center">  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
 </p>
->>>>>>> 7b508a026f4d0d6f810d90d579361dcc15df9bd6
 
 <p align="center">
   <b>Developed by Kalaitzakis Nikolaos</b><br>
