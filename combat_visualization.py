@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-def create_combat_visualization(use_real_data=False):
+def create_combat_visualization(use_real_data=False, output_path=None):
     """
     Create comprehensive visualization showing:
     1. Reference kinetic curves
@@ -14,6 +14,7 @@ def create_combat_visualization(use_real_data=False):
     Args:
         use_real_data: If True, uses actual data from CSV files.
                       If False, uses reference values for presentation.
+        output_path: Custom output path for the visualization. If None, uses the default.
     """
     print("Creating comprehensive ComBat visualization...")
     
@@ -70,8 +71,7 @@ def create_combat_visualization(use_real_data=False):
     else:
         create_comparison_plot_reference(ax_plateau, 'plateau_percentage', 
                                       'Plateau Comparison', 'Plateau (%)', 'green')
-    
-    # 5. Washout Comparison (Bottom Right)
+      # 5. Washout Comparison (Bottom Right)
     ax_washout = fig.add_subplot(gs[1, 2])
     if use_real_data:
         create_comparison_plot_from_data(ax_washout, raw_data, harmonized_data, 'washout_percentage', 
@@ -83,7 +83,11 @@ def create_combat_visualization(use_real_data=False):
     plt.tight_layout()
     
     # Save the visualization
-    output_path = os.path.join('images', 'combat_visualization.png')
+    if output_path is None:
+        output_path = os.path.join('images', 'combat_visualization.png')
+    
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     print(f"Visualization saved to {output_path}")
     plt.close()

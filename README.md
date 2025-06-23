@@ -1,18 +1,31 @@
 ﻿# MAMA-MIA DCE-MRI Analysis Project
 
-<p align="center">
+<div align="center">
   <img src="images/mamamia_logo.png" alt="MAMA-MIA Logo" width="200"/>
-</p>
+  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
+</div>
 
 ---
 
 ## Overview
-This project provides a pipeline for the analysis of dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
+This project provides a comprehensive web application and analysis pipeline for dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
 
-1. **Biomarker Extraction** from DCE-MRI sequences with contrast agent.
-2. **Pseudo-color Map Generation** based on biomarker characteristics.
-3. **Signal Harmonization** using the ComBat technique for multicenter data.
-4. **Comprehensive Visualization** of kinetic curves and harmonization effects.
+1. **Biomarker Extraction** from DCE-MRI sequences with contrast agent
+2. **Pseudo-color Map Generation** based on biomarker characteristics
+3. **Signal Harmonization** using the ComBat technique for multicenter data
+4. **Comprehensive Visualization** of kinetic curves and harmonization effects
+5. **Interactive Web Interface** for exploring case data and metrics
+
+### Web Application
+The project includes a modern, responsive web application that allows researchers to:
+- Explore DCE-MRI cases across multiple datasets (DUKE, ISPY1, ISPY2, NACT)
+- Visualize kinetic curves and tissue classification
+- Compare raw vs. harmonized data with interactive visualizations
+- Access key metrics and statistics for each case
+
+<p align="center">
+  <img src="images/website.png" alt="MAMA-MIA Web Interface" width="800"/>
+</p>
 
 ---
 
@@ -55,10 +68,26 @@ This project provides a pipeline for the analysis of dynamic contrast-enhanced m
 ## Project Structure
 - `DUKE/`, `ISPY1/`, `ISPY2/`, `NACT/`: Folders for each study group, each containing subfolders for individual cases and their respective DCE-MRI timepoints (e.g., `*_0000.nii.gz`, `*_0001.nii.gz`, ...).
 - `segment/`: Contains segmentation masks for each case (e.g., `DUKE_032.nii.gz`).
+
+### Core Scripts
 - `complete_pipeline.py`: Unified Python script for the entire DCE-MRI pipeline. Combines enhanced feature extraction, radiomics analysis, NIfTI colormap creation, and ComBat harmonization in a single file.
 - `combat_visualization.py`: Unified visualization script for creating comprehensive harmonization visualizations.
+- `rgb_nifti_converter.py`: Utility for converting standard colormaps to RGB-encoded NIfTI format.
+
+### Web Application Files
+- `web_app.py`: Main Flask application that serves the interactive web interface.
+- `templates/`: Contains HTML templates for the web application:
+  - `index.html`: Main page with case browser and dataset selection
+  - `case.html`: Detailed case analysis page with visualizations
+- `static/`: Contains static assets for the web application:
+  - `css/styles.css`: Custom CSS styles for the web interface
+  - `js/main.js`: JavaScript for interactive features
+  - `images/`: Icons, logos, and static visualizations
+
+### Data Files
 - `images/`: Contains example images, logos, and analysis results used in this README.
 - `complete_pipeline_raw_features.csv`: Raw extracted features before harmonization.
+- `complete_pipeline_normalized_features.csv`: Features after normalization.
 - `complete_pipeline_harmonized_features.csv`: Features after ComBat harmonization.
 
 ## Data Files
@@ -275,6 +304,105 @@ The dashboard automatically validates all components before launch and provides 
 
 ---
 
+## Web Application Features
+
+### Interactive Case Analysis
+Our web application provides a sophisticated interface for analyzing DCE-MRI data across multiple datasets. The application allows researchers and clinicians to:
+
+- Browse cases organized by dataset (DUKE, ISPY1, ISPY2, NACT)
+- View detailed kinetic curves showing signal intensity patterns over time
+- Analyze tissue classifications with color-coded visualizations
+- Compare raw and harmonized data with dual-axis visualizations
+- Access comprehensive metrics for quantitative analysis
+
+### Key Visualizations
+
+#### 1. Raw vs. Harmonized Comparison
+The application provides detailed comparisons between raw data and ComBat-harmonized data, allowing researchers to understand how harmonization affects feature values across different datasets.
+
+<p align="center">
+  <img src="images/raw_harmon.png" alt="Raw vs. Harmonized Comparison" width="700"/>
+</p>
+
+#### 2. Kinetic Curves Analysis
+The system generates detailed kinetic curve visualizations showing the signal intensity patterns over time, which are crucial for understanding tissue enhancement characteristics.
+
+<p align="center">
+  <img src="images/kinetic.png" alt="Kinetic Curves" width="600"/>
+</p>
+
+#### 3. Harmonized Kinetic Curves
+The application also provides visualizations of harmonized kinetic curves, illustrating how the ComBat harmonization affects the temporal enhancement patterns.
+
+<p align="center">
+  <img src="images/skinetic_harmon.png" alt="Harmonized Kinetic Curves" width="600"/>
+</p>
+
+#### 4. Tissue Classification with Colormap
+Advanced colormaps visualize tissue classification based on enhancement patterns with blue representing uptake, green for plateau, and red for washout regions.
+
+<p align="center">
+  <img src="images/keymetrics.png" alt="Colormap Visualization and Key Metrics" width="700"/>
+</p>
+
+### Technical Features
+The web application is built using:
+- **Flask**: Python web framework for the backend
+- **Bootstrap 5**: Modern responsive design system 
+- **Matplotlib & Plotly**: For dynamic chart generation
+- **Interactive Components**: Real-time data filtering and visualization
+
+All visualizations are dynamically generated based on actual case data, ensuring that researchers always have access to the most relevant and up-to-date information.
+
+---
+
+## Running the Web Application
+
+The interactive web application provides a user-friendly interface to explore all aspects of the DCE-MRI analysis, including kinetic curves, tissue classification, and harmonization effects.
+
+### Prerequisites
+- Python 3.8 or higher
+- Flask
+- NumPy, Pandas
+- Matplotlib 
+- Nibabel
+
+### Installation
+```bash
+# Install required packages
+pip install flask numpy pandas matplotlib nibabel
+```
+
+### Starting the Web Server
+```bash
+# Navigate to the project directory
+cd BiomedicalSignals
+
+# Run the web application
+python web_app.py
+```
+
+The web application will be available at [http://localhost:5000](http://localhost:5000) in your web browser.
+
+### Using the Web Interface
+
+1. **Home Page**: Browse available cases organized by dataset (DUKE, ISPY1, ISPY2, NACT).
+2. **Case Analysis**: Click on any case to view detailed analysis including:
+   - Kinetic curve visualizations
+   - Signal distribution pie charts
+   - Colormap visualization of tissue classification
+   - Key metrics table with quantitative data
+   - Raw vs. harmonized data comparisons
+3. **ComBat Visualization**: Generate real-time ComBat harmonization visualizations to compare datasets.
+
+### Key Features
+
+- **Interactive Case Browser**: Navigate through cases by dataset
+- **Dynamic Visualization Generation**: Real-time creation of visualizations based on case data
+- **Dual Y-Axis Charts**: Compare raw and harmonized data with appropriate scaling
+- **Responsive Design**: Works on desktop and mobile devices
+- **Detailed Explanations**: Comprehensive information about harmonization effects and analysis methods
+
 ## File Naming Conventions
 
 The unified pipeline uses consistent file naming conventions:
@@ -348,6 +476,24 @@ Three CSV files are created with increasing levels of processing:
 - Generate comprehensive comparison plots showing before/after harmonization results.
 - Calculate harmonization metrics including variance reduction and F-statistics.
 - Save harmonized features and create detailed visualizations of the harmonization effect.
+
+#### Understanding Raw vs. Harmonized Data
+
+The application provides detailed visualizations to help researchers understand the differences between raw and harmonized data:
+
+- **Dual Y-axis Scaling**: Raw values (0-100% scale) and harmonized values (0-1 scale) are displayed on separate axes for clear comparison.
+- **Scale Factor Labels**: Each comparison includes the scale factor between raw and harmonized data.
+- **Side-by-side Visualization**: Raw and harmonized values are shown side-by-side for easy comparison.
+
+<p align="center">
+  <img src="images/raw_harmon.png" alt="Raw vs Harmonized Comparison" width="700"/>
+</p>
+
+Key benefits of ComBat harmonization in this application:
+- Reduction of batch effects between different imaging centers
+- Standardization of values for fair comparison across datasets
+- Preservation of biological variation while removing technical variation
+- Improved statistical power for multi-center analysis
 
 ---
 
@@ -510,10 +656,18 @@ python rgb_nifti_converter.py
 
 ## Contribution and Credits
 
-<p align="center">  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
+<p align="center">
+  <img src="images/mamamia_logo.png" alt="MAMA-MIA Logo" width="200"/>
+  <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
 </p>
 
 <p align="center">
-  <b>Developed by Kalaitzakis Nikolaos</b><br>
-  Hellenic Mediterranean University
+  <b>Developed by Nikolaos Kalaitzakis</b><br>
+  Hellenic Mediterranean University<br>
+  © 2024-2025 MAMA-MIA Project
 </p>
+
+### Acknowledgements
+- MAMA-MIA Dataset contributors
+- Hellenic Mediterranean University for research support
+- Contributors to open-source libraries used in this project

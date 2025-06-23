@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAMA-MIA DCE-MRI Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='images/mamamia_logo.png') }}" alt="MAMA-MIA Logo" height="45">
+                <span>MAMA-MIA DCE-MRI Analysis</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#available-cases"><i class="fas fa-chart-bar"></i> Cases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#combat-section"><i class="fas fa-project-diagram"></i> ComBat</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="jumbotron">
+                    <h1 class="display-4">MAMA-MIA DCE-MRI Analysis Portal</h1>
+                    <p class="lead">
+                        <i class="fas fa-chart-line me-2"></i>Interactive visualizations for analyzing Dynamic Contrast-Enhanced Magnetic Resonance Imaging (DCE-MRI) data
+                        with a focus on breast cancer imaging biomarkers.
+                    </p>
+                    <hr class="my-4">
+                    <p>
+                        <i class="fas fa-database me-2"></i>This portal provides access to DCE-MRI data analysis from multiple datasets, 
+                        including kinetic curve analysis, voxel classification, and ComBat harmonization.
+                    </p>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="info-box">
+                                <h5><i class="fas fa-chart-area me-2"></i> Kinetic Curves</h5>
+                                <p>Analyze DCE-MRI signal intensity patterns over time</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-box">
+                                <h5><i class="fas fa-project-diagram me-2"></i> ComBat Harmonization</h5>
+                                <p>Remove batch effects across multiple datasets</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-box">
+                                <h5><i class="fas fa-th me-2"></i> Voxel Classification</h5>
+                                <p>Tissue type identification and mapping</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="d-flex justify-content-center align-items-center pt-3">
+                        <img src="{{ url_for('static', filename='images/mamamia_logo.png') }}" class="img-fluid" style="max-height: 120px;" alt="MAMA-MIA Logo">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Multicenter Analysis of MRI Abnormalities</h5>
+                        <p class="card-text">Explore advanced analysis techniques for DCE-MRI data to improve breast cancer diagnostics.</p>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <img src="{{ url_for('static', filename='images/hmu_logo.png') }}" class="img-fluid" style="max-height: 80px;" alt="HMU Logo">
+                        </div>
+                        <p class="mt-3"><em>Hellenic Mediterranean University</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>        <div class="row mt-5" id="available-cases">
+            <div class="col">
+                <div class="section-header">
+                    <h2><i class="fas fa-database me-2"></i> Available Cases</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    {% for dataset_name, dataset_cases in cases.items() %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {% if loop.first %}active{% endif %}" id="{{ dataset_name }}-tab" data-bs-toggle="tab" data-bs-target="#{{ dataset_name }}-tab-pane" type="button" role="tab" aria-controls="{{ dataset_name }}-tab-pane" aria-selected="{% if loop.first %}true{% else %}false{% endif %}">{{ dataset_name }}</button>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    {% for dataset_name, dataset_cases in cases.items() %}
+                    <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ dataset_name }}-tab-pane" role="tabpanel" aria-labelledby="{{ dataset_name }}-tab" tabindex="0">
+                        <div class="row mt-4">
+                            {% for case_id in dataset_cases %}                            <div class="col-md-3 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="case-icon mb-3">
+                                            <i class="fas fa-microscope"></i>
+                                        </div>
+                                        <h5 class="card-title">{{ case_id }}</h5>
+                                        <p class="card-text">View DCE-MRI analysis and kinetic curves.</p>
+                                        <a href="/case/{{ case_id }}" class="btn btn-primary">
+                                            <i class="fas fa-chart-line me-2"></i>View Case
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>        <div class="row mt-5" id="combat-section">
+            <div class="col-lg-12">
+                <div class="section-header">
+                    <h2><i class="fas fa-project-diagram me-2"></i> ComBat Harmonization Visualization</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Multi-center Data Harmonization</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">                            <div class="col-md-8">
+                                <div id="combat-results">
+                                    <img src="{{ url_for('static', filename='images/combat_visualization.png') }}" 
+                                         class="img-fluid" alt="ComBat Visualization" id="combat-visualization">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Multi-center Data Harmonization</h4>
+                                <p>
+                                    ComBat harmonization technique helps reduce batch effects between different imaging centers,
+                                    allowing for more reliable comparison of DCE-MRI features across different scanners and protocols.
+                                </p>
+                                <form id="combat-form" class="mt-3">
+                                    <button type="submit" class="btn btn-primary" id="generate-combat-btn">
+                                        Generate Real-time ComBat Visualization
+                                    </button>
+                                    <div class="spinner-border text-primary d-none" role="status" id="combat-spinner">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </form>
+                                <div id="combat-description" class="mt-3">
+                                    <p>Click the button above to generate a visualization using real data.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    </div>    <footer class="footer mt-5">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logos">
+                    <img src="{{ url_for('static', filename='images/mamamia_logo.png') }}" alt="MAMA-MIA Logo" class="footer-logo">
+                    <img src="{{ url_for('static', filename='images/hmu_logo.png') }}" alt="HMU Logo" class="footer-logo">
+                </div>
+                <div class="footer-text">
+                    <h4>MAMA-MIA: Multicenter Analysis of MRI Abnormalities</h4>
+                    <p>Advanced biomedical signal processing for breast cancer detection and classification</p>
+                    <p class="footer-author">Developed by <strong>Nikolaos Kalaitzakis</strong> - Hellenic Mediterranean University</p>
+                    <p>&copy; 2024-2025 MAMA-MIA Project. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="footer-bottom mt-4">
+                <div class="footer-nav">
+                    <a href="/" class="footer-link">Home</a>
+                    <a href="#available-cases" class="footer-link">Cases</a>
+                    <a href="#combat-section" class="footer-link">ComBat</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Enhanced combat form animation
+        const combatForm = document.getElementById('combat-form');
+        if (combatForm) {
+            combatForm.addEventListener('submit', function(e) {
+                const spinner = document.getElementById('combat-spinner');
+                const generateBtn = document.getElementById('generate-combat-btn');
+                
+                // Disable button and show spinner
+                generateBtn.disabled = true;
+                spinner.classList.remove('d-none');
+                generateBtn.innerHTML = 'Generating...';
+            });
+        }
+
+        // Smooth scrolling for all hash links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
