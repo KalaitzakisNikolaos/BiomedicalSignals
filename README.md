@@ -73,6 +73,7 @@ The project includes a modern, responsive web application that allows researcher
 - `complete_pipeline.py`: Unified Python script for the entire DCE-MRI pipeline. Combines enhanced feature extraction, radiomics analysis, NIfTI colormap creation, and ComBat harmonization in a single file.
 - `combat_visualization.py`: Unified visualization script for creating comprehensive harmonization visualizations.
 - `rgb_nifti_converter.py`: Utility for converting standard colormaps to RGB-encoded NIfTI format.
+- `explore_nifti.py`: Tool for exploring and analyzing NIfTI image files.
 
 ### Web Application Files
 - `web_app.py`: Main Flask application that serves the interactive web interface.
@@ -138,169 +139,6 @@ The `complete_pipeline.py` script automatically generates these output files by:
 8. Generating final CSV output with all feature data
 
 ---
-
-## 🎯 Interactive Dashboard Suite
-
-The project now includes a comprehensive suite of interactive dashboards for advanced feature exploration and visualization with multiple interface levels:
-
-### 🌌 Ultra-Advanced Dashboard (`ultra_advanced_dashboard.py`)
-**Next-generation quantum-inspired interface featuring:**
-- **Quantum-inspired themes**: Dynamic color schemes (Cyber, Neon, Aurora, Quantum)
-- **3D Neural Explorer**: Multi-dimensional feature space visualization
-- **Holographic PCA**: Advanced principal component analysis with 3D effects
-- **AI Pattern Recognition**: t-SNE analysis with neural network styling
-- **Real-time streaming**: Live data visualization simulation
-- **Advanced animations**: Particle effects, neural backgrounds, morphing charts
-- **Smart insights**: AI-powered analysis recommendations
-
-### 📊 Enhanced Dashboard (`enhanced_dashboard.py`)
-**Modern interface with sophisticated features:**
-- Glass-morphism design with animated transitions
-- Floating particle effects and gradient backgrounds
-- Advanced PCA and clustering analysis
-- Interactive scatter plots and correlation matrices
-- Modern responsive design
-
-### 🎯 Interactive Dashboard (`interactive_dashboard.py`)
-**Essential features with clean interface:**
-- Core visualization capabilities
-- Basic PCA and clustering
-- Standard interactive plots
-- Functional analysis tools
-
-### Quick Launch
-```bash
-# Ultra-Advanced Experience (recommended)
-python ultra_advanced_dashboard.py
-
-# Windows Batch Launcher (Command Prompt)
-launch_ultra_dashboard.bat
-
-# Windows PowerShell Launcher
-.\launch_ultra_dashboard.bat
-# OR the PowerShell version
-.\launch_ultra_dashboard.ps1
-
-# Enhanced Experience
-python enhanced_dashboard.py
-
-# Basic Experience
-python interactive_dashboard.py
-
-# Access at: http://127.0.0.1:8050
-```
-
-### Core Features (All Versions)
-- **Real-time Feature Exploration**: Interactive filtering by dataset, processing stage, and feature category
-- **Multi-dimensional Visualizations**: Box plots, correlation matrices, heatmaps, and scatter plots
-- **Advanced Analytics**: PCA analysis, K-means clustering, and dimensionality reduction
-- **Time-series Analysis**: Kinetic curve visualization and enhancement pattern analysis
-- **Statistical Summaries**: Comprehensive feature statistics and dataset comparisons
-
-### Dashboard Sections
-1. **Feature Overview**: Distribution analysis and correlation matrices
-2. **Correlation Analysis**: Comprehensive feature relationship exploration
-3. **Time-series Analysis**: Kinetic curve patterns and enhancement dynamics
-4. **PCA Analysis**: Principal component analysis and variance explanation
-5. **Clustering Analysis**: K-means clustering and pattern identification
-
-### Data Sources
-The dashboard automatically loads and analyzes three feature datasets:
-- `complete_pipeline_raw_features.csv` - Original extracted features
-- `complete_pipeline_normalized_features.csv` - Normalized features
-- `complete_pipeline_harmonized_features.csv` - ComBat harmonized features
-
----
-
-## 🌐 Advanced Web Dashboard
-
-The project now includes a comprehensive **Advanced Web Dashboard** for interactive analysis of DCE-MRI radiomics features! 
-
-### 🚀 Quick Launch
-```bash
-# Navigate to the website directory
-cd BiomedicalSignals/website
-
-# Launch the dashboard
-python launch.py
-
-# Open browser to: http://localhost:8050
-```
-
-### ✨ Key Features
-
-#### 🎨 **Modern UI/UX**
-- Beautiful, responsive Bootstrap design
-- Professional medical data color schemes
-- Animated transitions and modern typography
-- Mobile-friendly interface
-
-#### 📊 **Advanced Analytics**
-- **Feature Distribution Analysis**: Interactive histograms across datasets
-- **Correlation Analysis**: Advanced heatmaps with statistical significance
-- **Principal Component Analysis (PCA)**: Dimensionality reduction with explained variance
-- **Clustering Analysis**: K-means clustering with silhouette analysis
-- **Anomaly Detection**: Isolation Forest for outlier identification
-- **Feature Importance**: Random Forest-based feature ranking
-- **Data Exploration**: Interactive tables with filtering and sorting
-
-#### 🔬 **Radiomics Support**
-- **Multi-stage Analysis**: Raw, normalized, and harmonized features side-by-side
-- **Feature Categories**: Shape, first-order, GLCM, GLDM, GLRLM, GLSZM, NGTDM features
-- **Temporal Analysis**: Change features between DCE-MRI timepoints
-- **Kinetic Parameters**: Uptake, plateau, and washout percentages
-- **ComBat Harmonization**: Batch effect correction visualization
-
-#### 📈 **Interactive Visualizations**
-- Real-time filtering and parameter adjustment
-- Export-ready plots (PNG, SVG, PDF)
-- Hover information and selection highlighting
-- Zoom and pan capabilities
-
-### 🛠️ Technical Stack
-- **Frontend**: Dash, Plotly, Bootstrap 5
-- **Backend**: Python, Flask
-- **Analytics**: Scikit-learn, Pandas, NumPy
-- **Visualization**: Plotly.js with advanced interactivity
-
-### 📁 Website Structure
-```
-website/
-├── enhanced_app.py          # Main dashboard application
-├── visualizations.py       # Advanced visualization functions
-├── analytics.py            # ML and statistical analysis
-├── config.py               # Configuration and settings
-├── launch.py               # Easy launch script
-├── test_dashboard.py       # Comprehensive test suite
-├── requirements.txt        # Python dependencies
-└── README.md               # Detailed documentation
-```
-
-### 🎯 Dashboard Sections
-
-1. **📊 Dashboard Overview** - Key metrics and dataset summaries
-2. **🔍 Feature Analysis** - Interactive distribution and correlation analysis
-3. **🧠 Advanced Analytics** - PCA, clustering, and anomaly detection
-4. **📋 Data Explorer** - Comprehensive data table with filtering
-5. **⚙️ Settings** - Customizable analysis parameters
-
-### 💡 Use Cases
-
-- **Research**: Analyze radiomics features across different processing stages
-- **Quality Control**: Identify outliers and anomalies in DCE-MRI data
-- **Method Comparison**: Visualize effects of normalization and harmonization
-- **Feature Selection**: Identify most important features for analysis
-- **Exploratory Analysis**: Interactive discovery of data patterns
-
-### 🚀 Getting Started
-
-1. **Prerequisites**: Python 3.8+, pip
-2. **Installation**: All dependencies auto-installed via requirements.txt
-3. **Data**: Automatically loads CSV files from project directory
-4. **Launch**: Simple one-command startup with `python launch.py`
-5. **Access**: Open http://localhost:8050 in any modern browser
-
-The dashboard automatically validates all components before launch and provides helpful error messages for troubleshooting.
 
 ---
 
@@ -472,7 +310,7 @@ Three CSV files are created with increasing levels of processing:
 
 ### 3. Signal Harmonization (ComBat)
 - Extract statistical features from the pseudo-color maps (uptake%, plateau%, washout%).
-- Apply ComBat harmonization using the `neuroCombat` library to reduce batch effects.
+- Apply ComBat harmonization technique to reduce batch effects.
 - Generate comprehensive comparison plots showing before/after harmonization results.
 - Calculate harmonization metrics including variance reduction and F-statistics.
 - Save harmonized features and create detailed visualizations of the harmonization effect.
@@ -525,25 +363,16 @@ This script creates:
 
 ## Requirements
 - Python 3.8+
-- nibabel
-- numpy
-- matplotlib
-- seaborn
-- scipy
-- pandas
-- neuroCombat
-- SimpleITK
-- pyradiomics (for comprehensive feature extraction)
-
-### 🎮 Interactive Dashboard Requirements
-For the advanced interactive dashboard functionality:
-- **dash** - Web application framework
-- **plotly** - Interactive visualization library  
-- **scikit-learn** - Machine learning tools for PCA and clustering
+- Flask 2.3.3
+- Pandas 2.0.3
+- NumPy 1.24.4
+- Nibabel 5.1.0
+- Matplotlib 3.7.2
+- SimpleITK 2.2.1
 
 Install with:
 ```bash
-pip install dash plotly scikit-learn
+pip install -r requirements.txt
 ```
 
 ## Unified Pipeline Features
@@ -562,14 +391,14 @@ The new unified pipeline provides several advantages over the previous separate 
 - **ISPY2**: 10 cases
 - **NACT**: 10 cases
 - **Features Analyzed**: Uptake percentage, Plateau percentage, Washout percentage
-- **Harmonization Method**: ComBat (neuroCombat implementation)
+- **Harmonization Method**: ComBat harmonization technique
 
 ---
 
 ## References
 - [MAMA-MIA Dataset](https://www.synapse.org/Synapse:syn60868042/files/)
 - [PyRadiomics Documentation](https://pyradiomics.readthedocs.io/en/latest/)
-- [neuroCombat](https://github.com/Jfortin1/neuroCombat)
+
 
 ---
 ## Contribution and Credits
