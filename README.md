@@ -416,5 +416,5 @@ The new unified pipeline provides several advantages over the previous separate 
 
 ### Acknowledgements
 - MAMA-MIA Dataset contributors
-- Hellenic Mediterranean University for research support
+- Hellenic Mediterranean University
 - Contributors to open-source libraries used in this project
