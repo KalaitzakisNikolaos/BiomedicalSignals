@@ -701,10 +701,9 @@ The integrated approach combining traditional kinetic analysis with advanced rad
 
 ## 11. Acknowledgments and Contributions
 
-### Principal Investigator and Lead Developer
+### Lead Developer
 
 <p align="center">
-  <img src="images/mamamia_logo.png" alt="MAMA-MIA Logo" width="200"/>
   <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
 </p>
 
