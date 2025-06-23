@@ -200,7 +200,7 @@ class CompleteDCEMRIPipeline:
         from rgb_nifti_converter import convert_to_rgb_nifti
         
         # Save RGB-encoded NIfTI for visualization in Mango and other viewers
-        rgb_nifti_out_path = os.path.join(case_path, f"{case_id}_colormap.nii.gz")  # Χρησιμοποιούμε το ίδιο όνομα για συμβατότητα
+        rgb_nifti_out_path = os.path.join(case_path, f"{case_id}_colormap.nii.gz")  
         convert_to_rgb_nifti(tp0_file, colormap, rgb_nifti_out_path)
         
         # 2. Create enhanced PNG visualization
