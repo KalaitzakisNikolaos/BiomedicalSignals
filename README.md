@@ -572,48 +572,6 @@ The new unified pipeline provides several advantages over the previous separate 
 - [neuroCombat](https://github.com/Jfortin1/neuroCombat)
 
 ---
-
----
-
-## RGB NIfTI Visualization Enhancement
-
-### Features 
-- **Enhanced Visualization**: RGB-encoded NIfTI files now show the underlying MRI grayscale image
-- **Improved Compatibility**: Works directly with viewers like Mango without post-processing
-- **Visual Clarity**: Clear distinction between tissue regions with colorized overlays
-
-### Converting Existing Colormaps
-To convert previously generated colormaps to the RGB format with visible background:
-```bash
-python rgb_nifti_converter.py
-```
-This utility will process all datasets and replace standard colormaps with RGB-encoded versions.
-
----
-
-### 📊 Key Project Outputs
-
-1. **Enhanced Visualizations**
-   - RGB NIfTI files compatible with medical viewers
-   - Interactive web dashboard for comprehensive analysis
-   - Publication-ready statistical plots
-
-2. **Feature Analysis**
-   - Raw, normalized, and harmonized feature datasets
-   - Cross-dataset comparison and harmonization metrics
-   - Advanced statistical analysis and clustering
-
-3. **Clinical Applications**
-   - Improved tumor heterogeneity visualization
-   - Multi-center study compatibility through harmonization
-   - Automated patient subgroup identification
-
-### 🔬 Research Impact
-- **Standardized Processing**: Unified pipeline for DCE-MRI analysis
-- **Cross-site Compatibility**: ComBat harmonization removes batch effects
-- **Interactive Exploration**: Advanced dashboard for hypothesis generation
-- **Open Science**: Comprehensive documentation and reproducible workflows
-
 ## Contribution and Credits
 
 <p align="center">
