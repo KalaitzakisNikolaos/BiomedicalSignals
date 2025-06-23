@@ -88,8 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize any charts or plots if needed
     function initializeCharts() {
-        // Code for initializing any interactive charts would go here
-        // This could use Chart.js or other libraries if needed
+        
     }
     
     // Toggle between raw and harmonized data views if present
