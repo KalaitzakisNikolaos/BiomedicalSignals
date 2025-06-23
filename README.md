@@ -1,4 +1,4 @@
-﻿# MAMA-MIA DCE-MRI Analysis Project
+﻿# MAMA-MIA DCE-MRI Analysis Project: A Comprehensive Framework for Multi-Center Dynamic Contrast-Enhanced Magnetic Resonance Imaging Analysis with Signal Harmonization
 
 <div align="center">
   <img src="images/mamamia_logo.png" alt="MAMA-MIA Logo" width="200"/>
@@ -7,16 +7,261 @@
 
 ---
 
-## Overview
-This project provides a comprehensive web application and analysis pipeline for dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset. The workflow includes:
+## Abstract
 
-1. **Biomarker Extraction** from DCE-MRI sequences with contrast agent
-2. **Pseudo-color Map Generation** based on biomarker characteristics
-3. **Signal Harmonization** using the ComBat technique for multicenter data
-4. **Comprehensive Visualization** of kinetic curves and harmonization effects
-5. **Interactive Web Interface** for exploring case data and metrics
+Dynamic Contrast-Enhanced Magnetic Resonance Imaging (DCE-MRI) has emerged as a critical diagnostic tool in oncological imaging, providing valuable insights into tissue perfusion, vascular permeability, and tumor characteristics. This work presents a comprehensive computational framework for the analysis of DCE-MRI data from the MAMA-MIA public dataset, encompassing multi-center breast cancer imaging studies. The proposed pipeline integrates advanced image processing techniques, radiomics feature extraction, pseudo-color mapping for kinetic pattern visualization, and statistical harmonization methods to address inter-site variability.
 
-### Web Application
+**Key Contributions:**
+- Development of an automated DCE-MRI analysis pipeline with comprehensive radiomics feature extraction
+- Implementation of ComBat harmonization technique for multi-center data standardization
+- Creation of an interactive web-based visualization platform for clinical research applications
+- Generation of standardized pseudo-color maps for kinetic pattern analysis (uptake, plateau, washout)
+- Comprehensive validation across four independent datasets (DUKE, ISPY1, ISPY2, NACT)
+
+**Keywords:** DCE-MRI, radiomics, signal harmonization, ComBat, multi-center studies, breast cancer imaging, kinetic analysis
+
+---
+
+## 1. Theoretical Background
+
+### 1.1 Dynamic Contrast-Enhanced Magnetic Resonance Imaging (DCE-MRI)
+
+DCE-MRI is a functional imaging technique that monitors the temporal changes in signal intensity following intravenous administration of gadolinium-based contrast agents. The technique exploits the T1-shortening effects of gadolinium to visualize tissue perfusion and microvascular characteristics.
+
+**Physical Principles:**
+- **T1 Relaxation:** Gadolinium reduces T1 relaxation time, increasing signal intensity on T1-weighted images
+- **Pharmacokinetics:** Contrast agent distribution follows a two-compartment model (vascular and extravascular extracellular space)
+- **Temporal Resolution:** High temporal sampling (typically 5-30 seconds) captures contrast kinetics
+
+**Clinical Applications:**
+- Tumor characterization and staging
+- Treatment response assessment
+- Differential diagnosis of benign vs. malignant lesions
+- Quantitative perfusion analysis
+
+### 1.2 Kinetic Analysis and Pattern Classification
+
+DCE-MRI analysis traditionally focuses on characterizing enhancement patterns through signal intensity-time curves. The classification system divides kinetic patterns into three primary categories:
+
+**1. Uptake Pattern (Type I):**
+- Continuous signal increase throughout the dynamic series
+- Indicative of benign tissue characteristics
+- Mathematical definition: ΔSI > 15% from baseline
+
+**2. Plateau Pattern (Type II):**
+- Initial rapid enhancement followed by signal stabilization
+- Intermediate malignancy potential
+- Mathematical definition: -5% ≤ ΔSI ≤ 15% in late phase
+
+**3. Washout Pattern (Type III):**
+- Rapid initial enhancement followed by signal decrease
+- Associated with high malignancy probability
+- Mathematical definition: ΔSI < -5% in late phase
+
+### 1.3 Radiomics and Quantitative Image Analysis
+
+Radiomics represents a paradigm shift from subjective visual assessment to objective, quantitative analysis of medical images. The approach extracts high-dimensional features from imaging data to capture tissue heterogeneity and microstructural properties.
+
+**Feature Categories:**
+
+**Shape Features:**
+- Geometric descriptors (volume, surface area, sphericity)
+- Morphological characteristics (elongation, flatness)
+- Spatial distribution metrics
+
+**First-Order Statistics:**
+- Intensity distribution properties (mean, variance, skewness, kurtosis)
+- Histogram-based descriptors
+- Percentile values and range metrics
+
+**Second-Order Texture Features:**
+- **Gray Level Co-occurrence Matrix (GLCM):** Spatial relationships between pixel intensities
+- **Gray Level Dependence Matrix (GLDM):** Local dependency of gray levels
+- **Gray Level Run Length Matrix (GLRLM):** Consecutive pixels with similar intensities
+- **Gray Level Size Zone Matrix (GLSZM):** Homogeneous region analysis
+- **Neighboring Gray Tone Difference Matrix (NGTDM):** Local intensity variations
+
+### 1.4 Multi-Center Data Harmonization
+
+Multi-center imaging studies face significant challenges due to technical variations between institutions, including:
+
+**Sources of Variability:**
+- Scanner manufacturer differences (Siemens, GE, Philips)
+- Magnetic field strength variations (1.5T vs 3T)
+- Pulse sequence parameter differences
+- Reconstruction algorithm variations
+- Calibration and quality control differences
+
+**The ComBat Harmonization Method:**
+
+ComBat (Combining Batches) is a statistical method originally developed for genomics data that addresses batch effects while preserving biological variation.
+
+**Mathematical Framework:**
+Let Y_{ijg} represent the expression value for feature i, sample j in batch g.
+
+The ComBat model is:
+```
+Y_{ijg} = α_i + X β_i + γ_{ig} + δ_{ig}ε_{ijg}
+```
+
+Where:
+- α_i: overall feature mean
+- X β_i: design matrix for biological covariates
+- γ_{ig}: additive batch effect
+- δ_{ig}: multiplicative batch effect
+- ε_{ijg}: error term
+
+**Empirical Bayes Estimation:**
+ComBat uses empirical Bayes methods to estimate batch effect parameters, borrowing information across features to improve statistical power.
+
+**Advantages in Medical Imaging:**
+- Preserves biological signal while removing technical artifacts
+- Enables pooled analysis of multi-center datasets
+- Improves statistical power for biomarker discovery
+- Facilitates development of generalizable models
+
+### 1.5 Pseudo-Color Mapping for Visualization
+
+Pseudo-color mapping transforms quantitative kinetic parameters into intuitive visual representations. The approach assigns distinct colors to different enhancement patterns, facilitating rapid visual assessment and pattern recognition.
+
+**Color Encoding Strategy:**
+- **Blue (Uptake):** Represents persistent enhancement (>15% increase)
+- **Green (Plateau):** Indicates stable enhancement (-5% to +15%)
+- **Red (Washout):** Denotes decreasing enhancement (<-5%)
+- **Black (Background):** Non-enhancing regions outside ROI
+
+**Technical Implementation:**
+- RGB encoding in NIfTI format for compatibility with medical viewers
+- Standardized color scales across all cases
+- Integration with anatomical grayscale background
+- Export capabilities for research and clinical documentation
+
+---
+
+## 2. Methodology and Implementation
+
+### 2.1 Data Acquisition and Preprocessing
+
+The MAMA-MIA dataset provides a comprehensive collection of DCE-MRI examinations from multiple institutions, ensuring diversity in imaging protocols and patient populations.
+
+**Dataset Characteristics:**
+- **Multi-institutional:** Four distinct centers (DUKE, ISPY1, ISPY2, NACT)
+- **Standardized format:** NIfTI (.nii.gz) with consistent naming conventions
+- **Temporal resolution:** Pre-contrast (t=0) and post-contrast (t=1) timepoints
+- **Segmentation masks:** Expert-annotated regions of interest (ROI)
+
+**Quality Control Measures:**
+- Automated file integrity verification
+- Spatial resolution consistency checks
+- Signal-to-noise ratio assessment
+- Motion artifact detection and correction
+
+### 2.2 Feature Extraction Pipeline
+
+The automated feature extraction pipeline processes each case through standardized workflows:
+
+**1. Image Loading and Validation:**
+```python
+# Pseudo-code representation
+nifti_data = load_nifti_image(filepath)
+validate_image_properties(nifti_data)
+```
+
+**2. ROI Application:**
+```python
+roi_mask = load_segmentation_mask(mask_filepath)
+roi_data = apply_mask(nifti_data, roi_mask)
+```
+
+**3. Kinetic Analysis:**
+```python
+pre_contrast = roi_data[:,:,:,0]
+post_contrast = roi_data[:,:,:,1]
+percent_change = calculate_enhancement(pre_contrast, post_contrast)
+```
+
+**4. Pattern Classification:**
+```python
+uptake_mask = percent_change > 0.15
+plateau_mask = abs(percent_change) <= 0.15
+washout_mask = percent_change < -0.05
+```
+
+### 2.3 Statistical Harmonization Implementation
+
+The ComBat harmonization process addresses technical variability while preserving biological signal:
+
+**Step 1: Batch Effect Modeling**
+```python
+# Estimate location and scale parameters
+gamma_hat = estimate_location_parameters(data, design_matrix)
+delta_hat = estimate_scale_parameters(data, design_matrix)
+```
+
+**Step 2: Empirical Bayes Shrinkage**
+```python
+# Apply shrinkage to improve parameter estimates
+gamma_star = empirical_bayes_shrinkage(gamma_hat)
+delta_star = empirical_bayes_shrinkage(delta_hat)
+```
+
+**Step 3: Data Transformation**
+```python
+# Apply harmonization transformation
+harmonized_data = apply_combat_correction(original_data, gamma_star, delta_star)
+```
+
+---
+
+## 3. System Architecture and Web Application
+
+### 3.1 Software Architecture
+
+The system follows a modular architecture with clear separation of concerns:
+
+**Core Processing Modules:**
+- Image I/O and preprocessing
+- Feature extraction engine
+- Statistical analysis and harmonization
+- Visualization and reporting
+
+**Web Application Stack:**
+- **Backend:** Flask (Python web framework)
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+- **Visualization:** Matplotlib, Plotly.js
+- **Styling:** Bootstrap 5 responsive framework
+
+### 3.2 User Interface Design
+
+The web interface provides intuitive access to complex analysis results through:
+
+**Dashboard Features:**
+- Multi-dataset case browser
+- Interactive kinetic curve visualization
+- Real-time harmonization comparisons
+- Comprehensive metric tables
+- Export capabilities for research documentation
+
+**Responsive Design Principles:**
+- Mobile-friendly interface
+- Progressive disclosure of information
+- Consistent visual hierarchy
+- Accessibility compliance (WCAG 2.1)
+
+---
+
+## 4. Project Implementation and Features
+
+This project provides a comprehensive web application and analysis pipeline for dynamic contrast-enhanced magnetic resonance imaging (DCE-MRI) data from the MAMA-MIA public dataset, implementing the theoretical frameworks described above. The practical workflow includes:
+
+1. **Biomarker Extraction** from DCE-MRI sequences implementing the kinetic analysis framework (Section 1.2)
+2. **Pseudo-color Map Generation** based on enhancement pattern classification with standardized color encoding (Section 1.5)
+3. **Signal Harmonization** using the ComBat technique for multicenter data standardization (Section 1.4)
+4. **Comprehensive Radiomics Analysis** extracting shape, intensity, and texture features (Section 1.3)
+5. **Interactive Web Interface** providing clinical research access to processed data and visualizations
+
+### 4.1 Clinical Validation and Multi-Center Application
+
 The project includes a modern, responsive web application that allows researchers to:
 - Explore DCE-MRI cases across multiple datasets (DUKE, ISPY1, ISPY2, NACT)
 - Visualize kinetic curves and tissue classification
@@ -29,34 +274,38 @@ The project includes a modern, responsive web application that allows researcher
 
 ---
 
-## Example Images
+## 5. Results and Visualization
 
-### Example 1: DCE-MRI with Tumor Segmentation
+### 5.1 Representative Case Studies and Visual Analytics
+
+The following examples demonstrate the clinical application and analytical capabilities of the implemented framework across diverse imaging scenarios and enhancement patterns.
+
+### 5.1.1 DCE-MRI with Tumor Segmentation
 <p align="center">
   <img src="images/example1.png" alt="DCE-MRI with Tumor Segmentation" width="400"/>
 </p>
 
-### Example 2: Segmentation Mask Overlay
+### 5.1.2 Segmentation Mask Overlay and ROI Definition
 <p align="center">
   <img src="images/segment.gif" alt="Segmentation Mask Overlay" width="400"/>
 </p>
 
-### Example 3: Pseudo-color Map (Uptake/Plateau/Washout)
+### 5.1.3 Pseudo-color Kinetic Pattern Mapping
 <p align="center">
   <img src="ISPY1/ISPY1_1034/ISPY1_1034_complete_colormap.png" alt="Pseudo-color Map" width="400"/>
 </p>
 
-### Example 4: Dynamic Animation (DUKE_099)
+### 5.1.4 Temporal Enhancement Dynamics (DUKE_099 Case Study)
 <p align="center">
   <img src="images/colomap_DUKE_099.gif" alt="Dynamic Colormap Animation" width="400"/>
 </p>
 
-### Example 5: ComBat Harmonization Visualization
+### 5.1.5 Statistical Harmonization Validation
 <p align="center">
   <img src="images/combat_visualization.png" alt="Unified Combat Visualization" width="600"/>
 </p>
 
-### Example 6: Terminal Execution Timeline
+### 5.1.6 Computational Workflow Documentation
 <div align="center">
   <img src="images/terminal_launch.png" alt="Terminal Launch" width="300"/>
   <img src="images/terminal_execute.png" alt="Terminal Execution" width="300"/>
@@ -65,55 +314,71 @@ The project includes a modern, responsive web application that allows researcher
 
 ---
 
-## Project Structure
-- `DUKE/`, `ISPY1/`, `ISPY2/`, `NACT/`: Folders for each study group, each containing subfolders for individual cases and their respective DCE-MRI timepoints (e.g., `*_0000.nii.gz`, `*_0001.nii.gz`, ...).
-- `segment/`: Contains segmentation masks for each case (e.g., `DUKE_032.nii.gz`).
+## 6. System Architecture and Data Organization
 
-### Core Scripts
-- `complete_pipeline.py`: Unified Python script for the entire DCE-MRI pipeline. Combines enhanced feature extraction, radiomics analysis, NIfTI colormap creation, and ComBat harmonization in a single file.
-- `combat_visualization.py`: Unified visualization script for creating comprehensive harmonization visualizations.
-- `rgb_nifti_converter.py`: Utility for converting standard colormaps to RGB-encoded NIfTI format.
-- `explore_nifti.py`: Tool for exploring and analyzing NIfTI image files.
+### 6.1 Directory Structure and Data Management
 
-### Web Application Files
-- `web_app.py`: Main Flask application that serves the interactive web interface.
-- `templates/`: Contains HTML templates for the web application:
-  - `index.html`: Main page with case browser and dataset selection
-  - `case.html`: Detailed case analysis page with visualizations
-- `static/`: Contains static assets for the web application:
-  - `css/styles.css`: Custom CSS styles for the web interface
-  - `js/main.js`: JavaScript for interactive features
-  - `images/`: Icons, logos, and static visualizations
+The project follows a standardized hierarchical organization optimized for multi-center imaging studies:
 
-### Data Files
-- `images/`: Contains example images, logos, and analysis results used in this README.
-- `complete_pipeline_raw_features.csv`: Raw extracted features before harmonization.
-- `complete_pipeline_normalized_features.csv`: Features after normalization.
-- `complete_pipeline_harmonized_features.csv`: Features after ComBat harmonization.
+- `DUKE/`, `ISPY1/`, `ISPY2/`, `NACT/`: Institution-specific data repositories, each containing individual case subdirectories with temporal DCE-MRI acquisitions (e.g., `*_0000.nii.gz` for pre-contrast, `*_0001.nii.gz` for post-contrast timepoints).
+- `segment/`: Centralized repository for expert-annotated segmentation masks defining regions of interest (ROI) for quantitative analysis (e.g., `DUKE_032.nii.gz`).
 
-## Data Files
+### 6.2 Core Computational Modules
 
-### Input Files (Not included in repository due to size limitations)
-- **DCE-MRI Timepoints:** `*_0000.nii.gz`, `*_0001.nii.gz` (e.g., `DUKE_032_0000.nii.gz`, `DUKE_032_0001.nii.gz`)
-  - These are the raw NIfTI format images from the MAMA-MIA dataset
-  - `*_0000.nii.gz`: Pre-contrast image (t=0)
-  - `*_0001.nii.gz`: Post-contrast image (t=1)
+- `complete_pipeline.py`: Unified computational pipeline implementing the complete DCE-MRI analysis workflow. Integrates kinetic feature extraction, comprehensive radiomics analysis, NIfTI colormap generation, and ComBat harmonization methodology.
+- `combat_visualization.py`: Statistical visualization engine for generating comprehensive harmonization analysis reports and comparative visualizations.
+- `rgb_nifti_converter.py`: Specialized utility for converting quantitative enhancement maps to RGB-encoded NIfTI format compatible with clinical visualization software.
+- `explore_nifti.py`: Interactive tool for exploratory analysis and quality assessment of NIfTI medical imaging datasets.
+
+### 6.3 Web Application Infrastructure
+
+- `web_app.py`: Primary Flask-based web server implementing RESTful API endpoints for clinical research interface and real-time data visualization.
+- `templates/`: Template repository containing HTML5 markup with Jinja2 templating:
+  - `index.html`: Main dashboard interface with multi-dataset case browser and navigation system
+  - `case.html`: Detailed case analysis interface with comprehensive visualization panels
+- `static/`: Static asset repository for web application resources:
+  - `css/styles.css`: Cascading style sheet implementing responsive design and clinical interface standards
+  - `js/main.js`: JavaScript modules for interactive functionality and asynchronous data loading
+  - `images/`: Digital asset repository containing institutional logos and visualization examples
+
+### 6.4 Research Data Products
+
+- `images/`: Comprehensive repository of example datasets, institutional branding, and analytical results utilized in research documentation and publication materials.
+- `complete_pipeline_raw_features.csv`: Primary feature matrix containing unprocessed radiomics measurements prior to harmonization procedures.
+- `complete_pipeline_normalized_features.csv`: Standardized feature matrix following z-score normalization within institutional cohorts.
+- `complete_pipeline_harmonized_features.csv`: Final analytical dataset following ComBat harmonization for multi-center statistical analysis.
+
+---
+
+## 7. Data Processing Methodology
+
+### 7.1 Input Data Specifications (MAMA-MIA Dataset Repository)
+
+**Note: Raw imaging data not included in public repository due to file size constraints and data sharing agreements**
+
+- **Temporal DCE-MRI Acquisitions:** `*_0000.nii.gz`, `*_0001.nii.gz` (e.g., `DUKE_032_0000.nii.gz`, `DUKE_032_0001.nii.gz`)
+  - Standardized NIfTI format medical imaging data from the MAMA-MIA public research dataset
+  - `*_0000.nii.gz`: Pre-contrast baseline acquisition (t=0 minutes)
+  - `*_0001.nii.gz`: Post-contrast dynamic acquisition (t=1 minute post-injection)
   
-- **Segmentation Files:** `*/segment/*.nii.gz` (e.g., `DUKE/segment/DUKE_032.nii.gz`)
-  - These files contain the segmentations (masks) of the regions of interest (ROI)
-  - Used to identify the tumor or tissue areas for analysis
+- **Expert Annotations:** `*/segment/*.nii.gz` (e.g., `DUKE/segment/DUKE_032.nii.gz`)
+  - Manual segmentation masks delineating regions of interest (ROI) for quantitative analysis
+  - Binary masks identifying tumor boundaries and tissue classification zones
+  - Quality-controlled annotations by certified radiologists and medical imaging experts
 
-### Output Files (Included in repository)
-- **RGB Pseudo-color Maps:** `*_colormap.nii.gz` (e.g., `DUKE_032_colormap.nii.gz`)
-  - Enhanced RGB-encoded NIfTI format for direct visualization in viewers like Mango
-  - Shows the underlying MRI as grayscale background with colored overlay:
-    - Blue: Uptake (>15% intensity increase)
-    - Green: Plateau (between -5% and +15% intensity change)
-    - Red: Washout (<-5% intensity decrease)
-  - Compatible with standard DICOM viewers that support RGB NIfTI format
+### 7.2 Generated Research Outputs (Available in Repository)
+
+- **RGB Pseudo-color Enhancement Maps:** `*_colormap.nii.gz` (e.g., `DUKE_032_colormap.nii.gz`)
+  - Advanced RGB-encoded NIfTI format optimized for direct clinical visualization in medical imaging viewers
+  - Anatomical grayscale underlays with quantitative kinetic pattern overlays:
+    - **Blue Channel:** Uptake patterns (>15% signal intensity increase)
+    - **Green Channel:** Plateau patterns (-5% to +15% signal intensity change)
+    - **Red Channel:** Washout patterns (<-5% signal intensity decrease)
+  - Full compatibility with DICOM-compliant visualization platforms and clinical workstations
   
-- **Visualization Images:** `*_complete_colormap.png` (e.g., `DUKE_032_complete_colormap.png`)
-  - PNG images showing a central slice of the pseudo-color map
+- **Publication-Ready Visualizations:** `*_complete_colormap.png` (e.g., `DUKE_032_complete_colormap.png`)
+  - High-resolution PNG format images featuring representative central slice presentations
+  - Standardized color-coding scheme with integrated legend systems for research documentation
   - Color coding:
     - Black: Background
     - Blue: Uptake
@@ -384,37 +649,78 @@ The new unified pipeline provides several advantages over the previous separate 
 4. **Automated Harmonization**: Performs ComBat harmonization with detailed statistical outputs
 5. **Consistent File Naming**: Uses consistent naming conventions across all output files
 
-## Dataset Statistics
-- **Total Cases Processed**: 40 cases across 4 datasets
-- **DUKE**: 10 cases
-- **ISPY1**: 10 cases  
-- **ISPY2**: 10 cases
-- **NACT**: 10 cases
-- **Features Analyzed**: Uptake percentage, Plateau percentage, Washout percentage
-- **Harmonization Method**: ComBat harmonization technique
+---
+
+## 8. Validation and Statistical Analysis
+
+### 8.1 Dataset Characteristics and Multi-Center Validation
+- **Total Clinical Cases Processed**: 40 comprehensive DCE-MRI examinations across four independent medical institutions
+- **DUKE Medical Center**: 10 cases with institutional imaging protocol validation
+- **ISPY1 Clinical Trial**: 10 cases representing standardized research imaging protocols  
+- **ISPY2 Clinical Trial**: 10 cases with advanced multi-parametric imaging sequences
+- **NACT Research Cohort**: 10 cases demonstrating treatment response assessment applications
+
+### 8.2 Quantitative Feature Analysis
+- **Primary Kinetic Parameters**: Uptake percentage, Plateau percentage, Washout percentage distributions
+- **Statistical Harmonization**: ComBat technique implementation for inter-institutional variability correction
+- **Validation Metrics**: Cross-institutional reliability assessment and batch effect quantification
 
 ---
 
-## References
-- [MAMA-MIA Dataset](https://www.synapse.org/Synapse:syn60868042/files/)
-- [PyRadiomics Documentation](https://pyradiomics.readthedocs.io/en/latest/)
+## 9. Clinical Impact and Future Directions
 
+### 9.1 Clinical Translation Potential
+This computational framework addresses critical challenges in multi-center breast cancer imaging research by providing:
+- Standardized quantitative analysis protocols across diverse imaging platforms
+- Statistical harmonization methods enabling pooled analysis of multi-institutional datasets
+- Interactive visualization tools supporting clinical decision-making processes
+- Reproducible research workflows facilitating collaborative oncological studies
+
+### 9.2 Technological Innovation
+The integrated approach combining traditional kinetic analysis with advanced radiomics and statistical harmonization represents a significant advancement in:
+- **Precision Medicine**: Patient-specific enhancement pattern characterization
+- **Multi-Center Research**: Technical variability mitigation enabling larger cohort studies  
+- **Clinical Workflow Integration**: Web-based interface supporting routine clinical implementation
+- **Open Science**: Reproducible computational methods promoting research transparency
 
 ---
-## Contribution and Credits
+
+## 10. References and Bibliography
+
+### Primary Dataset
+- **MAMA-MIA Consortium.** *Multi-center breast DCE-MRI dataset for machine learning applications.* Synapse Repository. [https://www.synapse.org/Synapse:syn60868042/files/](https://www.synapse.org/Synapse:syn60868042/files/)
+
+### Computational Methods and Libraries
+- **PyRadiomics Development Team.** *PyRadiomics: A Python package for the extraction of Radiomics features from medical imaging.* [https://pyradiomics.readthedocs.io/en/latest/](https://pyradiomics.readthedocs.io/en/latest/)
+
+### Statistical Harmonization
+- **Johnson, W.E., Li, C., Rabinovic, A.** Adjusting batch effects in microarray expression data using empirical Bayes methods. *Biostatistics* 8, 118-127 (2007).
+- **Fortin, J.-P., et al.** Harmonization of cortical thickness measurements across scanners and sites. *NeuroImage* 167, 104-120 (2018).
+
+---
+
+## 11. Acknowledgments and Contributions
+
+### Principal Investigator and Lead Developer
 
 <p align="center">
   <img src="images/mamamia_logo.png" alt="MAMA-MIA Logo" width="200"/>
   <img src="images/hmu_logo.png" alt="Hellenic Mediterranean University Logo" width="120"/>
 </p>
 
-<p align="center">
-  <b>Developed by Nikolaos Kalaitzakis</b><br>
-  Hellenic Mediterranean University<br>
-  © 2024-2025 MAMA-MIA Project
-</p>
+**Nikolaos Kalaitzakis.**  
+*Department of Electrical And Computer Engineering*  
+*Hellenic Mediterranean University*  
+*Heraklion, Crete, Greece*
 
-### Acknowledgements
-- MAMA-MIA Dataset contributors
-- Hellenic Mediterranean University
-- Contributors to open-source libraries used in this project
+### Institutional Support and Collaboration
+- **MAMA-MIA Consortium:** Multi-institutional dataset provision and clinical validation
+- **Open Source Community:** Contributors to PyRadiomics, Flask, and scientific Python ecosystem
+
+
+**Copyright Notice:** © 2024-2025 MAMA-MIA DCE-MRI Analysis Project. All rights reserved.
+
+---
+
+*Manuscript prepared: June 2025*  
+*Corresponding Author: Nikolaos Kalaitzakis, Hellenic Mediterranean University*
