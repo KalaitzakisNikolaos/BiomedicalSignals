@@ -425,8 +425,6 @@ The `complete_pipeline.py` script automatically generates these output files by:
 
 ---
 
----
-
 ## Web Application Features
 
 ### Interactive Case Analysis
