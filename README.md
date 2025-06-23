@@ -7,14 +7,14 @@
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-Web%20Framework-green?style=for-the-badge&logo=flask&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-Web%20Interface-orange?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-Interactive-yellow?style=for-the-badge&logo=javascript&logoColor=black)
-![Medical Imaging](https://img.shields.io/badge/Medical%20Imaging-DCE--MRI-red?style=for-the-badge)
-![Radiomics](https://img.shields.io/badge/Radiomics-Feature%20Extraction-purple?style=for-the-badge)
-![ComBat](https://img.shields.io/badge/ComBat-Harmonization-teal?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Web%20Framework-green?logo=flask&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-Web%20Interface-orange?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-Interactive-yellow?logo=javascript&logoColor=black)
+![Medical Imaging](https://img.shields.io/badge/Medical%20Imaging-DCE--MRI-red)
+![Radiomics](https://img.shields.io/badge/Radiomics-Feature%20Extraction-purple)
+![ComBat](https://img.shields.io/badge/ComBat-Harmonization-teal)
 
 </div>
 
