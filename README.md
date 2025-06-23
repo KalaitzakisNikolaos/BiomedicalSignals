@@ -591,46 +591,6 @@ This utility will process all datasets and replace standard colormaps with RGB-e
 
 ---
 
-## 🎉 Project Status & New Features (June 2025)
-
-### ✅ Completed Enhancements
-
-#### 1. RGB NIfTI Visualization Enhancement
-- **Enhanced RGB Output**: Colormap files now show underlying MRI as grayscale background
-- **Improved Compatibility**: Direct visualization in Mango and other DICOM viewers
-- **Conversion Utility**: `rgb_nifti_converter.py` for upgrading existing colormaps
-
-#### 2. Interactive Dashboard Implementation
-- **Comprehensive Web Interface**: Real-time feature exploration at `http://127.0.0.1:8050`
-- **Multi-dimensional Analysis**: PCA, clustering, correlation, and time-series analysis
-- **Dataset Comparison**: Cross-dataset harmonization visualization
-- **Export-ready Visualizations**: High-quality plots for research publications
-
-#### 3. Advanced Analytics
-- **Principal Component Analysis**: Dimensionality reduction and feature importance
-- **K-means Clustering**: Automatic patient subgroup identification  
-- **Statistical Comparisons**: Before/after harmonization analysis
-- **Interactive Filtering**: Real-time data exploration by dataset and feature type
-
-### 🚀 Quick Start Guide
-
-#### Run the Complete Pipeline
-```bash
-python complete_pipeline.py
-```
-
-#### Launch Interactive Dashboard
-```bash
-python dashboard_simple.py
-# OR double-click launch_dashboard.bat
-# Open browser to: http://127.0.0.1:8050
-```
-
-#### Convert Existing Colormaps to RGB
-```bash
-python rgb_nifti_converter.py
-```
-
 ### 📊 Key Project Outputs
 
 1. **Enhanced Visualizations**
