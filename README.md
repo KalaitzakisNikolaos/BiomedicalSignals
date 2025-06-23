@@ -20,6 +20,13 @@
 
 ---
 
+**Author:** Nikolaos Kalaitzakis  
+**Academic ID:** TH20458  
+**Institution:** Hellenic Mediterranean University, Department of Electrical and Computer Engineering  
+**Publication Date:** 23/06/2025
+
+---
+
 ## Abstract
 
 Dynamic Contrast-Enhanced Magnetic Resonance Imaging (DCE-MRI) has emerged as a critical diagnostic tool in oncological imaging, providing valuable insights into tissue perfusion, vascular permeability, and tumor characteristics. This work presents a comprehensive computational framework for the analysis of DCE-MRI data from the MAMA-MIA public dataset, encompassing multi-center breast cancer imaging studies. The proposed pipeline integrates advanced image processing techniques, radiomics feature extraction, pseudo-color mapping for kinetic pattern visualization, and statistical harmonization methods to address inter-site variability.
