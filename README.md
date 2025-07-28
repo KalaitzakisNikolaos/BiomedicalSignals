@@ -20,8 +20,7 @@
 
 ---
 
-**Author:** Nikolaos Kalaitzakis  
-**Academic ID:** TH20458  
+**Author:** Nikolaos Kalaitzakis    
 **Institution:** Hellenic Mediterranean University, Department of Electrical and Computer Engineering  
 **Publication Date:** 23/06/2025
 
